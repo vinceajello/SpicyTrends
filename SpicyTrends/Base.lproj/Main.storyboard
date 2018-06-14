@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6oM-gO-7wt">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="SpicyTrends" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated 16 minutes ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKh-iG-bT7">
+                                <rect key="frame" x="8" y="66" width="354" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Mhb-oc-B6O"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xp2-j7-cZb" customClass="TrendsCollectionView" customModule="SpicyTrends" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="101" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewLayout key="collectionViewLayout" id="afq-et-rsl" customClass="VegaScrollFlowLayout" customModule="SpicyTrends" customModuleProvider="target"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TrendCell" id="j2W-is-cY8" customClass="TrendCell" customModule="SpicyTrends" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SKh-iG-bT7" secondAttribute="trailing" constant="13" id="S8k-0M-QYS"/>
+                            <constraint firstItem="SKh-iG-bT7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="f9t-u7-rma"/>
+                            <constraint firstItem="SKh-iG-bT7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="2" id="gB9-Ac-xG6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bdb-hw-YaE">
+                        <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title="Trends" id="GgJ-cy-Fj1"/>
+                        <view key="titleView" contentMode="scaleToFill" id="1aF-OZ-l1w">
+                            <rect key="frame" x="82.5" y="4.5" width="210" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="accessoryView" destination="1aF-OZ-l1w" id="cwv-ol-ULd"/>
+                        <outlet property="collectionView" destination="Xp2-j7-cZb" id="FY3-fb-zxU"/>
+                        <outlet property="date" destination="SKh-iG-bT7" id="1Rz-am-2Px"/>
+                        <segue destination="I1X-lM-Srx" kind="show" id="FJd-JL-yag"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="972" y="33.733133433283363"/>
+        </scene>
+        <!--Trend Details-->
+        <scene sceneID="DR8-wV-bfs">
+            <objects>
+                <viewController storyboardIdentifier="DetailsViewController" title="Trend Details" id="I1X-lM-Srx" customClass="DetailsViewController" customModule="SpicyTrends" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="USe-pJ-uVA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7M-WW-GWm">
+                                <rect key="frame" x="0.0" y="64" width="375" height="936"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xup-VV-awM" customClass="MainImageView" customModule="SpicyTrends" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="215" id="1tG-O7-yM9"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="215" id="Mxu-TC-K1f"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E0v-Ki-ywh">
+                                        <rect key="frame" x="8" y="223" width="50" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="KI3-eU-Z6w"/>
+                                            <constraint firstAttribute="height" constant="50" id="SD1-QE-lxq"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending keyword" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhe-qI-OP7">
+                                        <rect key="frame" x="66" y="238" width="301" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="4Gx-bK-lYv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJb-DI-sZS" customClass="WikipediaDescriptionView" customModule="SpicyTrends" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="281" width="359" height="15"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" placeholder="YES" id="tv6-DM-Pil"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhb-Hg-5EP">
+                                        <rect key="frame" x="8" y="304" width="175" height="40"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Ix1-Fz-Li4"/>
+                                            <constraint firstAttribute="width" constant="175" placeholder="YES" id="Zsn-Yc-WPz"/>
+                                        </constraints>
+                                        <state key="normal" title="Google"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mui-UE-j1i">
+                                        <rect key="frame" x="192" y="304" width="175" height="40"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Wikipedia"/>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yYG-38-CQV" customClass="NewsCollectionView" customModule="SpicyTrends" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="352" width="359" height="15"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="6xi-Kd-zz7"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="xup-VV-awM" secondAttribute="trailing" id="2dG-Z2-dF9"/>
+                                    <constraint firstItem="yYG-38-CQV" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="4D5-Tk-q8F"/>
+                                    <constraint firstAttribute="trailing" secondItem="yYG-38-CQV" secondAttribute="trailing" constant="8" id="4XP-jl-kNh"/>
+                                    <constraint firstAttribute="trailing" secondItem="IJb-DI-sZS" secondAttribute="trailing" constant="8" id="4ql-qM-fFU"/>
+                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="top" secondItem="IJb-DI-sZS" secondAttribute="bottom" constant="8" id="5Gm-9A-url"/>
+                                    <constraint firstItem="hhe-qI-OP7" firstAttribute="leading" secondItem="E0v-Ki-ywh" secondAttribute="trailing" constant="8" id="5us-M1-1aB"/>
+                                    <constraint firstItem="Mui-UE-j1i" firstAttribute="leading" secondItem="Vhb-Hg-5EP" secondAttribute="trailing" constant="9" id="Cjk-TT-9su"/>
+                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="baseline" secondItem="Mui-UE-j1i" secondAttribute="firstBaseline" id="DJn-c9-6qW"/>
+                                    <constraint firstItem="E0v-Ki-ywh" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="DeG-8N-LdU"/>
+                                    <constraint firstItem="Mui-UE-j1i" firstAttribute="trailing" secondItem="IJb-DI-sZS" secondAttribute="trailing" id="Ecd-P4-DND"/>
+                                    <constraint firstItem="xup-VV-awM" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" id="Fxh-zV-YlB"/>
+                                    <constraint firstItem="IJb-DI-sZS" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="Ogk-Ho-sMv"/>
+                                    <constraint firstItem="E0v-Ki-ywh" firstAttribute="top" secondItem="xup-VV-awM" secondAttribute="bottom" constant="8" id="TOd-nr-6gB"/>
+                                    <constraint firstItem="yYG-38-CQV" firstAttribute="top" secondItem="Vhb-Hg-5EP" secondAttribute="bottom" constant="8" id="U1G-Ad-RAV"/>
+                                    <constraint firstItem="IJb-DI-sZS" firstAttribute="top" secondItem="E0v-Ki-ywh" secondAttribute="bottom" constant="8" id="WnD-kt-9GN"/>
+                                    <constraint firstAttribute="trailing" secondItem="hhe-qI-OP7" secondAttribute="trailing" constant="8" id="WxR-4V-1Pl"/>
+                                    <constraint firstItem="hhe-qI-OP7" firstAttribute="top" secondItem="xup-VV-awM" secondAttribute="bottom" constant="23" id="avo-rB-Meu"/>
+                                    <constraint firstItem="xup-VV-awM" firstAttribute="top" secondItem="l7M-WW-GWm" secondAttribute="top" id="fvq-ef-elv"/>
+                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="gS5-dw-LQh"/>
+                                    <constraint firstItem="xup-VV-awM" firstAttribute="centerX" secondItem="l7M-WW-GWm" secondAttribute="centerX" id="jeh-3V-F6U"/>
+                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="top" secondItem="Mui-UE-j1i" secondAttribute="top" id="vab-o2-aDr"/>
+                                    <constraint firstAttribute="bottom" secondItem="xup-VV-awM" secondAttribute="bottom" constant="721" id="xJl-LO-nV6"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="l7M-WW-GWm" secondAttribute="trailing" id="HLF-42-6gK"/>
+                            <constraint firstItem="l7M-WW-GWm" firstAttribute="top" secondItem="CgE-Wi-ViM" secondAttribute="top" id="Y5e-SN-xrJ"/>
+                            <constraint firstItem="l7M-WW-GWm" firstAttribute="leading" secondItem="USe-pJ-uVA" secondAttribute="leading" id="fM5-6J-xlh"/>
+                            <constraint firstItem="l7M-WW-GWm" firstAttribute="bottom" secondItem="CgE-Wi-ViM" secondAttribute="bottom" id="hDp-HD-6Nl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CgE-Wi-ViM"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="375" height="686"/>
+                    <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="goToGoogleButton" destination="Vhb-Hg-5EP" id="dMa-2c-w26"/>
+                        <outlet property="goToWikipediaButton" destination="Mui-UE-j1i" id="kY6-0c-7g2"/>
+                        <outlet property="mainImage" destination="xup-VV-awM" id="52X-SI-Fjh"/>
+                        <outlet property="newsCollectionView" destination="yYG-38-CQV" id="l1H-wd-0iX"/>
+                        <outlet property="rankView" destination="E0v-Ki-ywh" id="4zP-hx-Qha"/>
+                        <outlet property="scrollView" destination="l7M-WW-GWm" id="Apb-93-qcA"/>
+                        <outlet property="trendLabel" destination="hhe-qI-OP7" id="Qsk-RY-R7O"/>
+                        <outlet property="wikiView" destination="IJb-DI-sZS" id="OIH-Ul-Blw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ig-6N-Jkj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2404" y="183.50824587706148"/>
+        </scene>
+        <!--Nav Controller-->
+        <scene sceneID="xpH-dW-QR2">
+            <objects>
+                <navigationController storyboardIdentifier="Intro" automaticallyAdjustsScrollViewInsets="NO" id="6oM-gO-7wt" customClass="NavController" customModule="SpicyTrends" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TA5-qr-UUg">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="S5Q-FU-r1k"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dmY-SN-n03" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="186" y="34"/>
+        </scene>
+    </scenes>
+</document>

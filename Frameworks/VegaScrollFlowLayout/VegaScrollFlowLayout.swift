@@ -18,7 +18,7 @@ open class VegaScrollFlowLayout: UICollectionViewFlowLayout, NSCopying
     
     public func copy(with zone: NSZone? = nil) -> Any
     {
-        print("ZONE : \(zone)")
+       // print("ZONE : \(zone)")
         return self
     }
     

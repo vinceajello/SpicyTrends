@@ -190,11 +190,12 @@ open class VegaScrollFlowLayout: UICollectionViewFlowLayout, NSCopying
         
         let attrs = behavior.items.first as! UICollectionViewLayoutAttributes
         var center = attrs.center
-        if latestDelta < 0 {
-            center.y += max(latestDelta, latestDelta * scrollResistance)
-        } else {
-            center.y += min(latestDelta, latestDelta * scrollResistance)
-        }
+//        if latestDelta < 0 {
+//            center.x += max(latestDelta, latestDelta * scrollResistance)
+//        } else {
+//            center.y += min(latestDelta, latestDelta * scrollResistance)
+//        }
+ 
         return center
     }
     

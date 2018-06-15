@@ -15,6 +15,7 @@ protocol TrendsCollectionViewDelegate
 
 class TrendsCollectionView: UICollectionView
 {
+    public var firstLoad:Bool = false
     public var trends: [Trend] = []
     let netManager = NetworkManager.init()
     
@@ -54,6 +55,7 @@ class TrendsCollectionView: UICollectionView
     
     func setTrends(trends:[Trend])
     {
+        firstLoad = true
         self.trends = trends
         self.reloadData()
     }
@@ -72,7 +74,13 @@ extension TrendsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
         let itemWidth = UIScreen.main.bounds.width - 2 * xInset
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        self.setCollectionViewLayout(layout, animated: true)
+        self.setCollectionViewLayout(layout, animated: false)
+        
+        if firstLoad == true
+        {
+            firstLoad = false
+            //xself.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize

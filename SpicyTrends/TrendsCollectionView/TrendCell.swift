@@ -89,14 +89,15 @@ class TrendCell: UICollectionViewCell
         else
         {
             printSafe(string: "!!! No news or wiki found for word \(word)")
-            self.getDescription(word: word)
+            activityView.startAnimating()
+            //self.getDescription(word: word)
+            self.perform(#selector(getDescription), with: word, afterDelay: 2)
         }
     }
     
-    func getDescription(word:String)
+  @objc func getDescription(word:String)
     {
-        activityView.startAnimating()
-
+        
         netManager.getDescriptionByKeyword(word: word)
         {
             (success, response) in
@@ -138,7 +139,7 @@ class TrendCell: UICollectionViewCell
         if let w = TrendsData.shared.wikis[word] { wiki = w }
         if let n = TrendsData.shared.news[word]
         {
-            if n.count >= 0
+            if n.count > 0
             {
                 news = n[0].title
             }
@@ -167,6 +168,6 @@ extension TrendCell
 {
     func printSafe(string:String)
     {
-        //print("Quick_Disable \(string)")
+        print("Quick_Disable \(string)")
     }
 }

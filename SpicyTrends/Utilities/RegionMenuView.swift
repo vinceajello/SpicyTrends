@@ -16,7 +16,8 @@ protocol RegionMenuDelegate
 class RegionMenuView: UIView
 {
     private var regionMenu:JNDropDownMenu!
-    let countries = Countries.init()
+    let allCountries = Countries.init()
+    var tableDatas:[String] = []
     var userRegion:String!
     var currentRegion:String!
     var delegate:RegionMenuDelegate!
@@ -27,6 +28,7 @@ class RegionMenuView: UIView
         super.init(frame: frame)
         
         self.userRegion = userRegion
+        tableDatas = allCountries.allCodes
         
         regionMenu = JNDropDownMenu(origin: CGPoint(x: 0, y: 0), height: frame.height, width:(frame.width-6)/2, parentView:parentView)
         regionMenu.layer.cornerRadius = 2
@@ -52,21 +54,42 @@ class RegionMenuView: UIView
 
 extension RegionMenuView: JNDropDownMenuDelegate, JNDropDownMenuDataSource
 {
+    func searchTextDidChange(text: String)
+    {
+        if text.count > 0
+        {
+            // xxx
+            
+            tableDatas = []
+        }
+        else
+        {
+            tableDatas = allCountries.allCodes
+        }
+        regionMenu.tableView.reloadData()
+        print(text)
+    }
+    
     func numberOfColumns(in menu: JNDropDownMenu) -> NSInteger {return 1}
     func didSelectRow(at indexPath: JNIndexPath, for menu: JNDropDownMenu)
     {
-        let code = countries.allCodes[indexPath.row]
+        let code = allCountries.allCodes[indexPath.row]
         guard let _ = delegate?.didSelectRegion(code: code) else {return}
     }
     
     func numberOfRows(in column: NSInteger, for menu: JNDropDownMenu) -> Int
-    {return countries.allCodes.count}
+    {
+        return tableDatas.count
+    }
+    
     func titleForRow(at indexPath: JNIndexPath, for menu: JNDropDownMenu) -> String
-    {return countries.allCodes[indexPath.row]}
+    {
+        return tableDatas[indexPath.row]
+    }
     
     func setIndexFromUserRegion()
     {
-        for (index, code) in countries.allCodes.enumerated()
+        for (index, code) in allCountries.allCodes.enumerated()
         {
             if code == userRegion
             {

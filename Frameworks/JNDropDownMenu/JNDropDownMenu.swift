@@ -41,6 +41,7 @@ public extension JNDropDownMenuDataSource {
 
 public protocol JNDropDownMenuDelegate: class {
     func didSelectRow(at indexPath: JNIndexPath, for menu: JNDropDownMenu)
+    func searchTextDidChange(text:String)
 }
 
 public class JNDropDownMenu: UIView {
@@ -59,6 +60,8 @@ public class JNDropDownMenu: UIView {
     var indicators: [CAShapeLayer] = []
     var bgLayers: [CALayer] = []
     var flagImage:UIImageView!
+    
+    var searchBar:UISearchBar!
     
     // custom msk
     var parentView:UIView!
@@ -141,13 +144,25 @@ public class JNDropDownMenu: UIView {
         self.currentSelectedMenuIndex = -1
         self.show = false
         //tableView init
-        self.tableView = UITableView.init(frame: CGRect(origin: CGPoint(x: 0, y :70), size: CGSize(width: 250, height: 0)))
+        self.tableView = UITableView.init(frame: CGRect(origin: CGPoint(x: 0, y :130), size: CGSize(width: 250, height: 0)))
         self.tableView.frame.origin.x = screenSize.width / 2 - 125
         self.tableView.rowHeight = 38
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.layer.cornerRadius = 8
         self.tableView.clipsToBounds = true
+        self.tableView.scrollIndicatorInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: -6)
+        
+        // search bar by mspaki
+        searchBar = UISearchBar.init(frame: CGRect.init(x: 0, y: 90, width: 250, height: 44))
+        searchBar.frame.origin.x = screenSize.width / 2 - 125
+        searchBar.layer.cornerRadius = 4
+        searchBar.clipsToBounds = true
+        searchBar.barTintColor = .white
+        
+        searchBar.delegate = self
+
+        
         //self tapped
         self.backgroundColor = UIColor.white
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.menuTapped(paramSender:)))
@@ -303,18 +318,19 @@ extension JNDropDownMenu {
     {
         if show
         {
-            tableView.frame = CGRect(origin: CGPoint(x: tableView.frame.origin.x, y: 70),
+            tableView.frame = CGRect(origin: CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y),
             size: CGSize(width: tableView.frame.width, height: 0))
 
             // msk hack
             parentView.superview?.addSubview(tableView)
+            parentView.superview?.addSubview(searchBar)
 
             let tableViewHeight = (CGFloat(tableView.numberOfRows(inSection: 0)) * tableView.rowHeight) < UIScreen.main.bounds.height-(self.origin.y+100) ? (CGFloat(tableView.numberOfRows(inSection: 0)) * tableView.rowHeight) : UIScreen.main.bounds.height-(self.origin.y+100)
 
             UIView.animate(withDuration: 0.2, animations:
             {
-                self.tableView.frame = CGRect(origin: CGPoint(x: tableView.frame.origin.x, y: 70),
-                size: CGSize(width: tableView.frame.width, height: tableViewHeight + 20))
+                self.tableView.frame = CGRect(origin: CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y),
+                size: CGSize(width: tableView.frame.width, height: (tableViewHeight + 20)/2))
                 completion(true)
             })
         }
@@ -322,13 +338,14 @@ extension JNDropDownMenu {
         {
             UIView.animate(withDuration: 0.2, animations:
             {
-                self.tableView.frame = CGRect(origin: CGPoint(x: tableView.frame.origin.x, y: 0),
+                self.tableView.frame = CGRect(origin: CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y),
                 size: CGSize(width: tableView.frame.width, height: 0))
             },
             completion:
             {
                 (_) in
                 tableView.removeFromSuperview()
+                self.searchBar.removeFromSuperview()
                 completion(true)
             })
         }
@@ -441,5 +458,13 @@ extension JNDropDownMenu: UITableViewDataSource, UITableViewDelegate {
     func selectRow(row: NSInteger, in component: NSInteger) {
         self.currentSelectedMenuIndex = component
         self.confiMenuWith(row: row)
+    }
+}
+
+extension JNDropDownMenu: UISearchBarDelegate
+{
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        guard let _ = delegate?.searchTextDidChange(text: searchText) else {return}
     }
 }

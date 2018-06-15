@@ -35,8 +35,9 @@ class HomeViewController: UIViewController
         self.initLoader()
 
         // assign collection view custom delegate
+        let topInset:CGFloat = 90
         collectionView.customDelegate = self
-        collectionView.frame = CGRect.init(x: 0, y: 65, width: self.view.frame.width, height: self.view.frame.height-65)
+        collectionView.frame = CGRect.init(x: 0, y: topInset, width: self.view.frame.width, height: self.view.frame.height-topInset)
 
         // Get trends data
         getTrends(region: regionMenu.currentRegion)
@@ -51,6 +52,7 @@ class HomeViewController: UIViewController
         TrendsData.shared.news = [:]
         collectionView.reloadData()
         
+    
         netManager.getGTrends(region: region)
         {
             (success, trends) in

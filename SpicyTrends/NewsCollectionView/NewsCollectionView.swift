@@ -10,6 +10,8 @@ import UIKit
 
 class NewsCollectionView: UIView
 {
+    let headerHeight:CGFloat = 30
+    let totalHeight:CGFloat = 115
     fileprivate let newsCellID = "NewsCell"
     private var newsData:[News] = []
     private var collectionView:UICollectionView!
@@ -18,8 +20,7 @@ class NewsCollectionView: UIView
     {
         super.init(coder: aDecoder)
                 
-        let headerHeight:CGFloat = 30
-        let sectionLabel = UILabel.init(frame: CGRect.init(x: 8, y: 0, width: 160, height: headerHeight))
+        let sectionLabel = UILabel.init(frame: CGRect.init(x: 8, y: 0, width: 60, height: headerHeight))
         sectionLabel.text = "News"
         sectionLabel.font = UIFont.boldSystemFont(ofSize: 22)
         sectionLabel.textColor = UIColor.darkGray
@@ -28,17 +29,17 @@ class NewsCollectionView: UIView
         let nib = UINib(nibName: newsCellID, bundle: nil)
         let screen = UIScreen.main.bounds
         let l = UICollectionViewFlowLayout.init();l.scrollDirection = .horizontal
-        l.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        let f = CGRect.init(x: 0, y: headerHeight, width: screen.width, height: self.frame.height-headerHeight)
+        l.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+        let f = CGRect.init(x: 0, y: headerHeight, width: screen.width, height: totalHeight-headerHeight)
         collectionView = UICollectionView.init(frame: f, collectionViewLayout: l)
         collectionView.register( nib, forCellWithReuseIdentifier: newsCellID)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.isPagingEnabled = false
+        collectionView.isPagingEnabled = true
         self.addSubview(collectionView)
         
         self.clipsToBounds = true
-        self.backgroundColor = UIColor.green
+        self.backgroundColor = UIColor.clear
         collectionView.backgroundColor = UIColor.clear
     }
     
@@ -50,9 +51,8 @@ class NewsCollectionView: UIView
         if newsData.count > 0
         {
             self.translatesAutoresizingMaskIntoConstraints = false
-            let heightConstraint = self.heightAnchor.constraint(equalToConstant: 170)
+            let heightConstraint = self.heightAnchor.constraint(equalToConstant: totalHeight)
             NSLayoutConstraint.activate([heightConstraint])
-            self.backgroundColor = .clear
         }
         else
         {
@@ -84,6 +84,9 @@ extension NewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsCellID, for: indexPath) as! NewsCell
+        cell.titleLabel.text = newsData[indexPath.row].title
+        cell.sourceLabel.text = newsData[indexPath.row].news_source
+        cell.setImageFrom(url: newsData[indexPath.row].image!)
         //cell.dateView.text = n[indexPath.row].created_at
         //cell.textLabel.text = tweetsData[indexPath.row].text
         //cell.authorLabel.text = tweetsData[indexPath.row].user.name

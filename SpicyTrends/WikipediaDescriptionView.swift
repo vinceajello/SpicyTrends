@@ -87,5 +87,7 @@ class WikipediaDescriptionView: UIView
         wikiLabel.font = UIFont.systemFont(ofSize: 18)
         wikiLabel.textColor = UIColor.darkText
         self.addSubview(wikiLabel)
+        
+        self.backgroundColor = .clear
     }
 }

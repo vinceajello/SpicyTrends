@@ -61,13 +61,12 @@ class DetailsViewController: UIViewController
         // Configure Ranking Circle
         rankView.layer.cornerRadius = rankView.frame.width / 2
         rankView.layer.borderWidth = 1
-        rankView.backgroundColor = UIColor.lightText.withAlphaComponent(0.6)
+        rankView.backgroundColor = UIColor.clear
         //mainImage.addSubview(rankView)
         
         // Configure Ranking Label
         let rankLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
         rankLabel.text = "\(rank+1)"
-        rankLabel.textColor = UIColor.darkGray
         rankLabel.textAlignment = .center
         rankLabel.font = UIFont.boldSystemFont(ofSize: 22)
         rankView.addSubview(rankLabel)
@@ -120,14 +119,13 @@ class DetailsViewController: UIViewController
         goToWikipediaButton.translatesAutoresizingMaskIntoConstraints = false
         goToGoogleButton.widthAnchor.constraint(equalToConstant: w).isActive = true
         goToWikipediaButton.widthAnchor.constraint(equalToConstant: w).isActive = true
-        goToGoogleButton.layer.cornerRadius = 8
-        goToWikipediaButton.layer.cornerRadius = 8
+        goToGoogleButton.layer.cornerRadius = 4
+        goToWikipediaButton.layer.cornerRadius = 4
 
         if wikiView.isDescriptionSet != true
         {goToWikipediaButton.alpha = 0}
-        
-        
-        //newsCollectionView.setNews(news: TrendsData.shared.news[trend.title])
+                
+        newsCollectionView.setNews(news: TrendsData.shared.news[trend.title]!)
         
         //NSLayoutConstraint.activate([heightConstraint])
         

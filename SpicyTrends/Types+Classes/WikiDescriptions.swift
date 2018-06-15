@@ -14,4 +14,5 @@ class TrendsData: NSObject
     var wikis:[String:String] = [:]
     var news:[String:[News]] = [:]
     var status:[String:String] = [:]
+    var newsImages:[String:UIImage] = [:]
 }

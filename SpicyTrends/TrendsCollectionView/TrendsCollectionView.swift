@@ -22,7 +22,7 @@ class TrendsCollectionView: UICollectionView
     private var itemHeight: CGFloat = 60 // 130
     private let lineSpacing: CGFloat = 10
     private let xInset: CGFloat = 5
-    private let topInset: CGFloat = 25
+    private let topInset: CGFloat = 0
     
     var customDelegate: TrendsCollectionViewDelegate?
     
@@ -64,15 +64,15 @@ extension TrendsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
     
     func cellDidFinishLoading(indexPath: IndexPath)
     {
-        let layout = self.collectionViewLayout as! VegaScrollFlowLayout
-        layout.invalidateLayout()
+        //let layout = self.collectionViewLayout as! VegaScrollFlowLayout
+        //layout.invalidateLayout()
         
-        //slet layout = VegaScrollFlowLayout()
-        //layout.minimumLineSpacing = lineSpacing
-        //layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        //let itemWidth = UIScreen.main.bounds.width - 2 * xInset
-        //layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        //self.setCollectionViewLayout(layout, animated: true)
+        let layout = VegaScrollFlowLayout()
+        layout.minimumLineSpacing = lineSpacing
+        layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+        let itemWidth = UIScreen.main.bounds.width - 2 * xInset
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        self.setCollectionViewLayout(layout, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize

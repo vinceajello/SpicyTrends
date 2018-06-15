@@ -116,7 +116,7 @@ class TrendCell: UICollectionViewCell
             var wiki = "no-data"
             
             if let n = response?.news.news
-            { if n.count > 2 { news = n } }
+            { if n.count > 0 { news = n } }
             
             if let w = response?.wiki
             { if w.count > 0 { wiki = w } }
@@ -138,9 +138,9 @@ class TrendCell: UICollectionViewCell
         if let w = TrendsData.shared.wikis[word] { wiki = w }
         if let n = TrendsData.shared.news[word]
         {
-            if n.count >= 2
+            if n.count >= 0
             {
-                news = n[1].title
+                news = n[0].title
             }
         }
         

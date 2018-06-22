@@ -27,5 +27,4 @@ class NavController: UINavigationController
         super.init(coder: aDecoder)
         delegate = zoomNavigationControllerDelegate
     }
-    
 }

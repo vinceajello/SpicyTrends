@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,18 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated 16 minutes ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKh-iG-bT7">
-                                <rect key="frame" x="8" y="66" width="354" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last update - - -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKh-iG-bT7">
+                                <rect key="frame" x="15" y="35" width="308" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Mhb-oc-B6O"/>
+                                    <constraint firstAttribute="height" constant="20" id="o9i-z7-Axo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xp2-j7-cZb" customClass="TrendsCollectionView" customModule="SpicyTrends" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="101" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xp2-j7-cZb" customClass="TrendsCollectionView" customModule="SpicyTrends" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="105" width="375" height="562"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewLayout key="collectionViewLayout" id="afq-et-rsl" customClass="VegaScrollFlowLayout" customModule="SpicyTrends" customModuleProvider="target"/>
                                 <cells>
@@ -44,29 +42,51 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NdE-Fn-Sp1">
+                                <rect key="frame" x="338" y="35" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="lNX-pn-Yb0"/>
+                                    <constraint firstAttribute="width" constant="22" id="lhF-ww-Oog"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.1134345704" blue="0.18073991780000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aF-OZ-l1w">
+                                <rect key="frame" x="15" y="70" width="345" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="ICl-SV-oee"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SKh-iG-bT7" secondAttribute="trailing" constant="13" id="S8k-0M-QYS"/>
-                            <constraint firstItem="SKh-iG-bT7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="f9t-u7-rma"/>
-                            <constraint firstItem="SKh-iG-bT7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="2" id="gB9-Ac-xG6"/>
+                            <constraint firstItem="Xp2-j7-cZb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0Dm-HI-9c0"/>
+                            <constraint firstItem="NdE-Fn-Sp1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="4um-Is-Yb7"/>
+                            <constraint firstItem="1aF-OZ-l1w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="8Jl-5G-Tne"/>
+                            <constraint firstItem="Xp2-j7-cZb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="A4S-yu-0vC"/>
+                            <constraint firstItem="Xp2-j7-cZb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DWG-f4-ucZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Xp2-j7-cZb" secondAttribute="trailing" id="HqC-7U-P9U"/>
+                            <constraint firstItem="Xp2-j7-cZb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Q6E-li-ZzR"/>
+                            <constraint firstItem="NdE-Fn-Sp1" firstAttribute="leading" secondItem="SKh-iG-bT7" secondAttribute="trailing" constant="15" id="SMI-xm-djS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NdE-Fn-Sp1" secondAttribute="trailing" constant="15" id="SxD-O1-Yc4"/>
+                            <constraint firstItem="1aF-OZ-l1w" firstAttribute="top" secondItem="SKh-iG-bT7" secondAttribute="bottom" constant="15" id="aIG-pV-peU"/>
+                            <constraint firstItem="Xp2-j7-cZb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bQ2-Sj-hCD"/>
+                            <constraint firstItem="SKh-iG-bT7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="fnq-gb-fUO"/>
+                            <constraint firstItem="Xp2-j7-cZb" firstAttribute="top" secondItem="1aF-OZ-l1w" secondAttribute="bottom" id="kfs-AZ-OOt"/>
+                            <constraint firstItem="SKh-iG-bT7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="nry-1x-Tc4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1aF-OZ-l1w" secondAttribute="trailing" constant="15" id="riV-qM-DmF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="bdb-hw-YaE">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Trends" id="GgJ-cy-Fj1"/>
-                        <view key="titleView" contentMode="scaleToFill" id="1aF-OZ-l1w">
-                            <rect key="frame" x="82.5" y="4.5" width="210" height="35"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
                     </navigationItem>
                     <connections>
                         <outlet property="accessoryView" destination="1aF-OZ-l1w" id="cwv-ol-ULd"/>
                         <outlet property="collectionView" destination="Xp2-j7-cZb" id="FY3-fb-zxU"/>
                         <outlet property="date" destination="SKh-iG-bT7" id="1Rz-am-2Px"/>
-                        <segue destination="I1X-lM-Srx" kind="show" id="FJd-JL-yag"/>
+                        <segue destination="I1X-lM-Srx" kind="show" identifier="Details" id="FJd-JL-yag"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -78,126 +98,163 @@
             <objects>
                 <viewController storyboardIdentifier="DetailsViewController" title="Trend Details" id="I1X-lM-Srx" customClass="DetailsViewController" customModule="SpicyTrends" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="USe-pJ-uVA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7M-WW-GWm">
-                                <rect key="frame" x="0.0" y="64" width="375" height="936"/>
+                            <scrollView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7M-WW-GWm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xup-VV-awM" customClass="MainImageView" customModule="SpicyTrends" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GS4-9f-br4">
+                                        <rect key="frame" x="15" y="0.0" width="344" height="0.0"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T8a-EV-Ilf" customClass="MainImageView" customModule="SpicyTrends" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="344" height="215"/>
+                                                <color key="backgroundColor" red="0.33904212480000001" green="0.66603813710000004" blue="0.96620899439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="215" id="RWg-Xj-Go5"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jsY-Al-faM">
+                                                <rect key="frame" x="15" y="230" width="35" height="35"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="9Xq-0W-ENK"/>
+                                                    <constraint firstAttribute="width" constant="35" id="lQm-8A-nP9"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3M-Wo-Jdo">
+                                                <rect key="frame" x="65" y="235" width="264" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="zuo-6a-k1m"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7EK-Wy-3tL" customClass="WikipediaDescriptionView" customModule="SpicyTrends" customModuleProvider="target">
+                                                <rect key="frame" x="15" y="280" width="314" height="20"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" placeholder="YES" id="DLC-3G-TEQ"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKB-ZC-EDu">
+                                                <rect key="frame" x="15" y="315" width="78" height="32"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="8pd-lI-sHr"/>
+                                                </constraints>
+                                                <state key="normal" image="GoogleButton"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-ux-GaF">
+                                                <rect key="frame" x="106" y="315" width="116" height="32"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="mms-wg-eqx"/>
+                                                </constraints>
+                                                <state key="normal" image="WikipediaButton"/>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5W-7O-qEB" customClass="NewsCollectionView" customModule="SpicyTrends" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="362" width="344" height="20"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" placeholder="YES" id="mLl-SX-Our"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3Z-Nd-9EA" customClass="TweetsCollectionView" customModule="SpicyTrends" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="397" width="344" height="20"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" placeholder="YES" id="aqK-eK-Owa"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugd-jh-6d7">
+                                                <rect key="frame" x="304" y="15" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="fX6-4n-R6f"/>
+                                                    <constraint firstAttribute="width" constant="25" id="zQH-Cs-KyQ"/>
+                                                </constraints>
+                                                <state key="normal" image="CLoseDetailsIcon"/>
+                                                <connections>
+                                                    <action selector="closeDetailsButtonPressed:" destination="I1X-lM-Srx" eventType="touchUpInside" id="g9o-4X-iRl"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.28738969559999999" green="0.53323239089999996" blue="0.53333944079999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="215" id="1tG-O7-yM9"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="215" id="Mxu-TC-K1f"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E0v-Ki-ywh">
-                                        <rect key="frame" x="8" y="223" width="50" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="KI3-eU-Z6w"/>
-                                            <constraint firstAttribute="height" constant="50" id="SD1-QE-lxq"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending keyword" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhe-qI-OP7">
-                                        <rect key="frame" x="66" y="238" width="301" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="4Gx-bK-lYv"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJb-DI-sZS" customClass="WikipediaDescriptionView" customModule="SpicyTrends" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="281" width="359" height="15"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="15" placeholder="YES" id="tv6-DM-Pil"/>
-                                        </constraints>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhb-Hg-5EP">
-                                        <rect key="frame" x="8" y="304" width="175" height="40"/>
-                                        <color key="backgroundColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="Ix1-Fz-Li4"/>
-                                            <constraint firstAttribute="width" constant="175" placeholder="YES" id="Zsn-Yc-WPz"/>
-                                        </constraints>
-                                        <state key="normal" title=" " image="GoogleButton"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mui-UE-j1i">
-                                        <rect key="frame" x="192" y="304" width="175" height="40"/>
-                                        <color key="backgroundColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" title=" " image="WikipediaButton"/>
-                                    </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yYG-38-CQV" customClass="NewsCollectionView" customModule="SpicyTrends" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="352" width="359" height="15"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="15" placeholder="YES" id="6xi-Kd-zz7"/>
+                                            <constraint firstItem="K3M-Wo-Jdo" firstAttribute="leading" secondItem="jsY-Al-faM" secondAttribute="trailing" constant="15" id="4q5-4e-7el"/>
+                                            <constraint firstItem="7EK-Wy-3tL" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="5eU-fJ-84s"/>
+                                            <constraint firstAttribute="height" id="81a-BT-eoj"/>
+                                            <constraint firstAttribute="trailing" secondItem="T8a-EV-Ilf" secondAttribute="trailing" id="GJe-db-ia7"/>
+                                            <constraint firstItem="ugd-jh-6d7" firstAttribute="top" secondItem="GS4-9f-br4" secondAttribute="top" constant="15" id="GWU-xp-ZcV"/>
+                                            <constraint firstItem="Lsf-ux-GaF" firstAttribute="top" secondItem="7EK-Wy-3tL" secondAttribute="bottom" constant="15" id="Lnv-xb-7Pz"/>
+                                            <constraint firstItem="T8a-EV-Ilf" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" id="Ndf-3G-r57"/>
+                                            <constraint firstItem="jsY-Al-faM" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="OTX-x6-1c3"/>
+                                            <constraint firstItem="Lsf-ux-GaF" firstAttribute="leading" secondItem="eKB-ZC-EDu" secondAttribute="trailing" constant="13" id="OcN-fr-ZNv"/>
+                                            <constraint firstAttribute="trailing" secondItem="ugd-jh-6d7" secondAttribute="trailing" constant="15" id="S7G-3d-0hR"/>
+                                            <constraint firstItem="7EK-Wy-3tL" firstAttribute="top" secondItem="jsY-Al-faM" secondAttribute="bottom" constant="15" id="TCh-fE-YRG"/>
+                                            <constraint firstAttribute="trailing" secondItem="7EK-Wy-3tL" secondAttribute="trailing" constant="15" id="Zs6-fe-bVO"/>
+                                            <constraint firstItem="eKB-ZC-EDu" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="c04-pV-GAm"/>
+                                            <constraint firstItem="K3M-Wo-Jdo" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="20" id="eOo-6P-XrA"/>
+                                            <constraint firstItem="eKB-ZC-EDu" firstAttribute="top" secondItem="7EK-Wy-3tL" secondAttribute="bottom" constant="15" id="gch-fC-cUz"/>
+                                            <constraint firstItem="G5W-7O-qEB" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" id="hT6-Ca-vf2"/>
+                                            <constraint firstAttribute="trailing" secondItem="K3M-Wo-Jdo" secondAttribute="trailing" constant="15" id="kq9-OO-lP4"/>
+                                            <constraint firstItem="X3Z-Nd-9EA" firstAttribute="top" secondItem="G5W-7O-qEB" secondAttribute="bottom" constant="15" id="mnb-3h-HjV"/>
+                                            <constraint firstItem="X3Z-Nd-9EA" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" id="nJ9-iQ-EqS"/>
+                                            <constraint firstItem="T8a-EV-Ilf" firstAttribute="top" secondItem="GS4-9f-br4" secondAttribute="top" id="nMu-zM-OJn"/>
+                                            <constraint firstItem="jsY-Al-faM" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="15" id="pKN-gH-yvN"/>
+                                            <constraint firstAttribute="trailing" secondItem="X3Z-Nd-9EA" secondAttribute="trailing" id="rvC-NV-93p"/>
+                                            <constraint firstItem="G5W-7O-qEB" firstAttribute="top" secondItem="eKB-ZC-EDu" secondAttribute="bottom" constant="15" id="wjT-Wh-lK5"/>
+                                            <constraint firstAttribute="trailing" secondItem="G5W-7O-qEB" secondAttribute="trailing" id="yhG-sz-OJ3"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xup-VV-awM" secondAttribute="trailing" id="2dG-Z2-dF9"/>
-                                    <constraint firstItem="yYG-38-CQV" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="4D5-Tk-q8F"/>
-                                    <constraint firstAttribute="trailing" secondItem="yYG-38-CQV" secondAttribute="trailing" constant="8" id="4XP-jl-kNh"/>
-                                    <constraint firstAttribute="trailing" secondItem="IJb-DI-sZS" secondAttribute="trailing" constant="8" id="4ql-qM-fFU"/>
-                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="top" secondItem="IJb-DI-sZS" secondAttribute="bottom" constant="8" id="5Gm-9A-url"/>
-                                    <constraint firstItem="hhe-qI-OP7" firstAttribute="leading" secondItem="E0v-Ki-ywh" secondAttribute="trailing" constant="8" id="5us-M1-1aB"/>
-                                    <constraint firstItem="Mui-UE-j1i" firstAttribute="leading" secondItem="Vhb-Hg-5EP" secondAttribute="trailing" constant="9" id="Cjk-TT-9su"/>
-                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="baseline" secondItem="Mui-UE-j1i" secondAttribute="firstBaseline" id="DJn-c9-6qW"/>
-                                    <constraint firstItem="E0v-Ki-ywh" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="DeG-8N-LdU"/>
-                                    <constraint firstItem="Mui-UE-j1i" firstAttribute="trailing" secondItem="IJb-DI-sZS" secondAttribute="trailing" id="Ecd-P4-DND"/>
-                                    <constraint firstItem="xup-VV-awM" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" id="Fxh-zV-YlB"/>
-                                    <constraint firstItem="IJb-DI-sZS" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="Ogk-Ho-sMv"/>
-                                    <constraint firstItem="E0v-Ki-ywh" firstAttribute="top" secondItem="xup-VV-awM" secondAttribute="bottom" constant="8" id="TOd-nr-6gB"/>
-                                    <constraint firstItem="yYG-38-CQV" firstAttribute="top" secondItem="Vhb-Hg-5EP" secondAttribute="bottom" constant="8" id="U1G-Ad-RAV"/>
-                                    <constraint firstItem="IJb-DI-sZS" firstAttribute="top" secondItem="E0v-Ki-ywh" secondAttribute="bottom" constant="8" id="WnD-kt-9GN"/>
-                                    <constraint firstAttribute="trailing" secondItem="hhe-qI-OP7" secondAttribute="trailing" constant="8" id="WxR-4V-1Pl"/>
-                                    <constraint firstItem="hhe-qI-OP7" firstAttribute="top" secondItem="xup-VV-awM" secondAttribute="bottom" constant="23" id="avo-rB-Meu"/>
-                                    <constraint firstItem="xup-VV-awM" firstAttribute="top" secondItem="l7M-WW-GWm" secondAttribute="top" id="fvq-ef-elv"/>
-                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="8" id="gS5-dw-LQh"/>
-                                    <constraint firstItem="xup-VV-awM" firstAttribute="centerX" secondItem="l7M-WW-GWm" secondAttribute="centerX" id="jeh-3V-F6U"/>
-                                    <constraint firstItem="Vhb-Hg-5EP" firstAttribute="top" secondItem="Mui-UE-j1i" secondAttribute="top" id="vab-o2-aDr"/>
-                                    <constraint firstAttribute="bottom" secondItem="xup-VV-awM" secondAttribute="bottom" constant="721" id="xJl-LO-nV6"/>
+                                    <constraint firstItem="GS4-9f-br4" firstAttribute="leading" secondItem="l7M-WW-GWm" secondAttribute="leading" constant="15" id="9Hx-7Q-3gE"/>
+                                    <constraint firstItem="GS4-9f-br4" firstAttribute="centerX" secondItem="l7M-WW-GWm" secondAttribute="centerX" id="Ejn-lx-uHF"/>
+                                    <constraint firstAttribute="bottom" secondItem="GS4-9f-br4" secondAttribute="bottom" id="XsH-JU-wrM"/>
+                                    <constraint firstItem="GS4-9f-br4" firstAttribute="top" secondItem="l7M-WW-GWm" secondAttribute="top" id="fTd-Bf-6dT"/>
+                                    <constraint firstAttribute="trailing" secondItem="GS4-9f-br4" secondAttribute="trailing" id="lpp-lD-JAV"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="l7M-WW-GWm" secondAttribute="trailing" id="HLF-42-6gK"/>
-                            <constraint firstItem="l7M-WW-GWm" firstAttribute="top" secondItem="CgE-Wi-ViM" secondAttribute="top" id="Y5e-SN-xrJ"/>
-                            <constraint firstItem="l7M-WW-GWm" firstAttribute="leading" secondItem="USe-pJ-uVA" secondAttribute="leading" id="fM5-6J-xlh"/>
+                            <constraint firstItem="l7M-WW-GWm" firstAttribute="bottom" secondItem="CgE-Wi-ViM" secondAttribute="bottom" id="WjA-gx-akw"/>
+                            <constraint firstItem="l7M-WW-GWm" firstAttribute="leading" secondItem="CgE-Wi-ViM" secondAttribute="leading" id="fCw-v8-VKh"/>
                             <constraint firstItem="l7M-WW-GWm" firstAttribute="bottom" secondItem="CgE-Wi-ViM" secondAttribute="bottom" id="hDp-HD-6Nl"/>
+                            <constraint firstItem="CgE-Wi-ViM" firstAttribute="trailing" secondItem="l7M-WW-GWm" secondAttribute="trailing" id="sWm-a8-gxq"/>
+                            <constraint firstItem="l7M-WW-GWm" firstAttribute="top" secondItem="CgE-Wi-ViM" secondAttribute="top" constant="-20" id="xEa-ce-n81"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CgE-Wi-ViM"/>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="375" height="686"/>
-                    <size key="freeformSize" width="375" height="1000"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="375" height="667"/>
                     <connections>
-                        <outlet property="goToGoogleButton" destination="Vhb-Hg-5EP" id="dMa-2c-w26"/>
-                        <outlet property="goToWikipediaButton" destination="Mui-UE-j1i" id="kY6-0c-7g2"/>
-                        <outlet property="mainImage" destination="xup-VV-awM" id="52X-SI-Fjh"/>
-                        <outlet property="newsCollectionView" destination="yYG-38-CQV" id="l1H-wd-0iX"/>
-                        <outlet property="rankView" destination="E0v-Ki-ywh" id="4zP-hx-Qha"/>
-                        <outlet property="scrollView" destination="l7M-WW-GWm" id="Apb-93-qcA"/>
-                        <outlet property="trendLabel" destination="hhe-qI-OP7" id="Qsk-RY-R7O"/>
-                        <outlet property="wikiView" destination="IJb-DI-sZS" id="OIH-Ul-Blw"/>
+                        <outlet property="contentSizeHeight" destination="XsH-JU-wrM" id="hRO-W2-nh7"/>
+                        <outlet property="contentView" destination="GS4-9f-br4" id="EIB-VG-CXf"/>
+                        <outlet property="contentViewHeight" destination="81a-BT-eoj" id="hKd-Zm-T8z"/>
+                        <outlet property="goToGoogleButton" destination="eKB-ZC-EDu" id="ccu-kC-PvL"/>
+                        <outlet property="goToWikipediaButton" destination="Lsf-ux-GaF" id="uyW-J6-Q2z"/>
+                        <outlet property="mainImage" destination="T8a-EV-Ilf" id="Sos-IY-fYX"/>
+                        <outlet property="newsCollectionView" destination="G5W-7O-qEB" id="0sI-gT-59r"/>
+                        <outlet property="rankView" destination="jsY-Al-faM" id="3Cr-TH-1wy"/>
+                        <outlet property="scrollView" destination="l7M-WW-GWm" id="n2r-M9-CXT"/>
+                        <outlet property="trendLabel" destination="K3M-Wo-Jdo" id="lvJ-Ts-qn9"/>
+                        <outlet property="tweetsCollectionView" destination="X3Z-Nd-9EA" id="4zk-hq-lmH"/>
+                        <outlet property="wikiView" destination="7EK-Wy-3tL" id="ygM-FF-eCR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ig-6N-Jkj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2404" y="183.50824587706148"/>
+            <point key="canvasLocation" x="2314.4000000000001" y="33.733133433283363"/>
         </scene>
         <!--Nav Controller-->
         <scene sceneID="xpH-dW-QR2">
             <objects>
-                <navigationController storyboardIdentifier="Intro" automaticallyAdjustsScrollViewInsets="NO" id="6oM-gO-7wt" customClass="NavController" customModule="SpicyTrends" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Intro" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6oM-gO-7wt" customClass="NavController" customModule="SpicyTrends" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TA5-qr-UUg">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
@@ -212,6 +269,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CLoseDetailsIcon" width="30" height="30"/>
         <image name="GoogleButton" width="78" height="28"/>
         <image name="WikipediaButton" width="116" height="26"/>
     </resources>

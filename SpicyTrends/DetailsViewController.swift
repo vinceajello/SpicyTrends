@@ -23,8 +23,10 @@ class DetailsViewController: UIViewController
     
     let netManager = NetworkManager.init()
     @IBOutlet private var scrollView:UIScrollView!
+    @IBOutlet private var contentView:UIView!
+    
     @IBOutlet private var rankView:UIView!
-    @IBOutlet private var mainImage:MainImageView!
+    @IBOutlet public var mainImage:MainImageView!
     @IBOutlet private var trendLabel:UILabel!
     @IBOutlet private var wikiView:WikipediaDescriptionView!
     @IBOutlet private var newsCollectionView:NewsCollectionView!
@@ -33,42 +35,39 @@ class DetailsViewController: UIViewController
     @IBOutlet private var goToGoogleButton:UIButton!
     @IBOutlet private var goToWikipediaButton:UIButton!
 
-    override func viewDidAppear(_ animated: Bool)
-    {
-        super.viewDidAppear(true)
-        //tweetsCollectionView.configAutoscrollTimer()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool)
-    {
-        super.viewDidAppear(true)
-        //tweetsCollectionView.deconfigAutoscrollTimer()
-    }
-    
-    @objc func back()
-    {
-        guard let _ = delegate?.setTransitionImage(image: mainImage.imageView.image!) else { return }
-        navigationController?.popViewController(animated: true)
-    }
+    @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var contentSizeHeight: NSLayoutConstraint!
+
+    public var transitionFrame = CGRect.init(x: 0, y: 0, width: 0, height: 0)
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.view.backgroundColor = .clear
+        
         scrollView.isPagingEnabled = false
-        let back = UIBarButtonItem.init(title: "Back", style: .plain, target: self, action: #selector(self.back))
-        self.navigationItem.leftBarButtonItem = back
+        scrollView.clipsToBounds = false
+        scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, -30)
+        
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 4
+        contentView.layer.cornerRadius = 4
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOpacity = 0.3
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        contentView.layer.masksToBounds = true
+        contentView.backgroundColor = UIColor.white
         
         // Configure Ranking Circle
         rankView.layer.cornerRadius = rankView.frame.width / 2
         rankView.layer.borderWidth = 1
         rankView.backgroundColor = UIColor.clear
-        //mainImage.addSubview(rankView)
         
         // Configure Ranking Label
-        let rankLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
+        let rankLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 35, height: 35))
         rankLabel.text = "\(rank+1)"
         rankLabel.textAlignment = .center
-        rankLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        rankLabel.font = UIFont.systemFont(ofSize: 17)
         rankView.addSubview(rankLabel)
         
         let colors = TrendColors.init()
@@ -76,64 +75,35 @@ class DetailsViewController: UIViewController
         rankView.layer.borderColor = hColor.cgColor
         rankLabel.textColor = hColor
         
-        /*
-        // configure Flag icon
-        let flagIcon = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: circleSize/2, height: circleSize/2))
-        flagIcon.backgroundColor = UIColor.brown
-        flagIcon.layer.cornerRadius = circleSize / 4
-        flagIcon.image = UIImage.init(named: country)
-        flagIcon.clipsToBounds = true
-        flagIcon.center.x = circleView.center.x + 20
-        flagIcon.center.y = circleView.center.y + 20
-        mainImage.addSubview(flagIcon)
-        */
- 
-        /*
-        // Search on Google Button
-        let screen = UIScreen.main.bounds
-        let googleSearchButton = UIButton.init(type: .custom)
-        googleSearchButton.frame = CGRect.init(x: screen.width-50-10, y: 0, width: 50, height: 50)
-        googleSearchButton.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
-        googleSearchButton.layer.borderWidth = 1
-        googleSearchButton.layer.cornerRadius = googleSearchButton.frame.width / 2
-        googleSearchButton.clipsToBounds = true
-        googleSearchButton.setImage(UIImage.init(named: "SearchOnGoogle"), for: .normal)
-        googleSearchButton.backgroundColor = UIColor.lightText.withAlphaComponent(0.6)
-        mainImage.addSubview(googleSearchButton)
-        googleSearchButton.center.y = circleView.center.y
-        */
-        
         // Start getting main image
-        mainImage.getMainImage(word: trend.title)
+        //mainImage.getMainImage(word: trend.title)
         
         // Set Trend Title
         trendLabel.text = trend.title
-        trendLabel.textColor = hColor
+        trendLabel.textColor = UIColor.darkGray
+        //trendLabel.textColor = hColor
 
         // Show a description for the keyword (if we have one)
-        wikiView.setDescription(word: trend.title)
+        wikiView.setWiki(wiki: trend.wiki)
         
         // Configure buttons size and layout
-        let w:CGFloat = (UIScreen.main.bounds.size.width - 25) / 2
+        let w:CGFloat = (UIScreen.main.bounds.size.width - 75) / 2
         goToGoogleButton.translatesAutoresizingMaskIntoConstraints = false
         goToWikipediaButton.translatesAutoresizingMaskIntoConstraints = false
         goToGoogleButton.widthAnchor.constraint(equalToConstant: w).isActive = true
         goToWikipediaButton.widthAnchor.constraint(equalToConstant: w).isActive = true
         goToGoogleButton.layer.cornerRadius = 4
         goToWikipediaButton.layer.cornerRadius = 4
-
-        if wikiView.isDescriptionSet != true
-        {goToWikipediaButton.alpha = 0}
-                
-        newsCollectionView.setNews(news: TrendsData.shared.news[trend.title]!)
-        
-        //NSLayoutConstraint.activate([heightConstraint])
-        
-        
-        // Start getting related tweets
-        //tweetsCollectionView.getTweets(word: trend.title, region: country)
  
-        //self.updateHeight()
+        if (wikiView.isWikiSetted == false)
+        {goToWikipediaButton.alpha = 0}
+ 
+        newsCollectionView.setNews(news: trend.news.news)
+        
+        tweetsCollectionView.delegate = self
+        tweetsCollectionView.getTweets(word: trend.title, region: country)
+        
+        updateHeight()
         
         // Get suggested word from api
         /*
@@ -156,11 +126,21 @@ class DetailsViewController: UIViewController
     func updateHeight()
     {
         var newHeight:CGFloat = 0
-        for view in self.view.subviews
+        newHeight = newHeight + mainImage.frame.height + 15
+        newHeight = newHeight + rankView.frame.height + 15
+        newHeight = newHeight + wikiView.wikiLabel.frame.height + 15
+        newHeight = newHeight + goToGoogleButton.frame.size.height + 15
+        if newsCollectionView.newsData.count > 0
         {
-            newHeight = newHeight + view.frame.height
+            newHeight = newHeight + 125 + 15
         }
-        scrollView.contentSize.height = newHeight
+        if tweetsCollectionView.tweetsData.count > 0
+        {
+            newHeight = newHeight + 125 + 15
+        }
+        
+        contentViewHeight.constant = newHeight
+        contentSizeHeight.constant = newHeight
     }
     
     func showRelatedTopics(suggested:[String])
@@ -180,6 +160,12 @@ class DetailsViewController: UIViewController
         return o
     }
     
+    @IBAction func closeDetailsButtonPressed(_ sender: Any)
+    {
+        guard let _ = delegate?.setTransitionImage(image: mainImage.imageView.image!) else { return }
+        navigationController?.popViewController(animated: true)
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -190,7 +176,16 @@ extension DetailsViewController:ZoomTransitionDestinationDelegate
 {
     func transitionDestinationImageViewFrame(forward: Bool) -> CGRect
     {
-        return CGRect.init(x: 0, y: 65, width: self.view.frame.width, height: 215)
+        let s = self.view.safeAreaInsets.top
+        return CGRect.init(x: 15, y: 215+20, width: self.view.frame.width-30, height: transitionFrame.size.height)
+    }
+}
+
+extension DetailsViewController:TweetsCollectionViewDelegate
+{
+    func tweetsDidLoad()
+    {
+        self.updateHeight()
     }
     
     

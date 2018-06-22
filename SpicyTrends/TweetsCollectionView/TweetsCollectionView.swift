@@ -8,16 +8,19 @@
 
 import UIKit
 
+protocol TweetsCollectionViewDelegate
+{
+    func tweetsDidLoad()
+}
+
 class TweetsCollectionView: UIView
 {
-    var timr=Timer()
-    var w:CGFloat=0.0
-    
     fileprivate let tweetCellID = "TweetCell"
-    private var tweetsData:[TweetData] = []
-    private var collectionView:UICollectionView!
+    public var tweetsData:[TweetData] = []
+    public var collectionView:UICollectionView!
     private let netManager = NetworkManager.init()
     private var activityIndicator:UIActivityIndicatorView!
+    public var delegate:TweetsCollectionViewDelegate!
 
     required init?(coder aDecoder: NSCoder)
     {
@@ -25,10 +28,8 @@ class TweetsCollectionView: UIView
         
         self.startLoader()
         
-        self.backgroundColor = UIColor.green
-
-        let headerHeight:CGFloat = 30
-        let sectionLabel = UILabel.init(frame: CGRect.init(x: 8, y: 0, width: 160, height: headerHeight))
+        let headerHeight:CGFloat = 20
+        let sectionLabel = UILabel.init(frame: CGRect.init(x: 15, y: 0, width: 160, height: headerHeight))
         sectionLabel.text = "Related Tweets"
         sectionLabel.font = UIFont.boldSystemFont(ofSize: 22)
         sectionLabel.textColor = UIColor.darkGray
@@ -37,17 +38,17 @@ class TweetsCollectionView: UIView
         let nib = UINib(nibName: tweetCellID, bundle: nil)
         let screen = UIScreen.main.bounds
         let l = UICollectionViewFlowLayout.init();l.scrollDirection = .horizontal
-        l.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        let f = CGRect.init(x: 0, y: headerHeight, width: screen.width, height: self.frame.height-headerHeight)
+        l.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let f = CGRect.init(x: 0, y: headerHeight, width: screen.width-30, height: 100)
         collectionView = UICollectionView.init(frame: f, collectionViewLayout: l)
         collectionView.register( nib, forCellWithReuseIdentifier: tweetCellID)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.isPagingEnabled = false
+        collectionView.isPagingEnabled = true
         self.addSubview(collectionView)
         
-        self.clipsToBounds = true
-        self.backgroundColor = UIColor.white
+        self.clipsToBounds = false
+        self.backgroundColor = UIColor.clear
         collectionView.backgroundColor = UIColor.clear
         
     }
@@ -57,8 +58,10 @@ class TweetsCollectionView: UIView
         let screen = UIScreen.main.bounds
         activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = UIColor.darkGray
-        activityIndicator.center.x = (screen.width - 16) / 2
+        activityIndicator.center.x = (screen.width - 20) / 2
         activityIndicator.center.y = 75
+        activityIndicator.color = UIColor.red
+        activityIndicator.tintColor = UIColor.green
         self.addSubview(activityIndicator)
         activityIndicator.startAnimating()
     }
@@ -80,18 +83,11 @@ class TweetsCollectionView: UIView
     
     func setTweets(tweetsData:[TweetData])
     {
-        self.tweetsData = tweetsData
-        collectionView.reloadData()
-        
-        activityIndicator.stopAnimating()
-        activityIndicator.removeFromSuperview()
-        
         if tweetsData.count > 0
         {
             self.translatesAutoresizingMaskIntoConstraints = false
-            let heightConstraint = self.heightAnchor.constraint(equalToConstant: 170)
+            let heightConstraint = self.heightAnchor.constraint(equalToConstant: 130)
             NSLayoutConstraint.activate([heightConstraint])
-            self.backgroundColor = .clear
         }
         else
         {
@@ -100,6 +96,13 @@ class TweetsCollectionView: UIView
             let heightConstraint = self.heightAnchor.constraint(equalToConstant: 0)
             NSLayoutConstraint.activate([heightConstraint])
         }
+        
+        self.tweetsData = tweetsData
+        collectionView.reloadData()
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
+        
+        guard let _ = delegate?.tweetsDidLoad() else { return }
     }
 }
 
@@ -107,7 +110,7 @@ extension TweetsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: collectionView.frame.width-16, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width-2, height: collectionView.frame.height)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
@@ -123,62 +126,13 @@ extension TweetsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tweetCellID, for: indexPath) as! TweetCell
-        cell.dateView.text = tweetsData[indexPath.row].created_at
+        cell.dateView.text = "@"+tweetsData[indexPath.row].user.screen_name
         cell.textLabel.text = tweetsData[indexPath.row].text
         cell.authorLabel.text = tweetsData[indexPath.row].user.name
         cell.setHashTags(hashtags: tweetsData[indexPath.row].entities.hashtags)
         return cell
     }
     
-    
-}
-
-extension TweetsCollectionView
-{
-    
-
-    
-    func configAutoscrollTimer()
-    {
-        
-        timr=Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(autoScrollView), userInfo: nil, repeats: true)
-    }
-    func deconfigAutoscrollTimer()
-    {
-        timr.invalidate()
-        
-    }
-    func onTimer()
-    {
-        autoScrollView()
-    }
-    
-    @objc func autoScrollView()
-    {
-        
-        let initailPoint = CGPoint(x: w,y :0)
-        
-        if __CGPointEqualToPoint(initailPoint, collectionView.contentOffset)
-        {
-            if w<collectionView.contentSize.width
-            {
-                w += 0.5
-            }
-            else
-            {
-                w = -self.frame.size.width
-            }
-            
-            let offsetPoint = CGPoint(x: w,y :0)
-            
-            collectionView.contentOffset=offsetPoint
-            
-        }
-        else
-        {
-            w=collectionView.contentOffset.x
-        }
-    }
     
 }
 

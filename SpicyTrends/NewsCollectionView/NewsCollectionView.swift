@@ -10,17 +10,18 @@ import UIKit
 
 class NewsCollectionView: UIView
 {
-    let headerHeight:CGFloat = 30
-    let totalHeight:CGFloat = 115
+    let headerHeight:CGFloat = 20
+    let totalHeight:CGFloat = 120
     fileprivate let newsCellID = "NewsCell"
-    private var newsData:[News] = []
-    private var collectionView:UICollectionView!
+    public var newsData:[News] = []
+    public var collectionView:UICollectionView!
     
     required init?(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
+        
                 
-        let sectionLabel = UILabel.init(frame: CGRect.init(x: 8, y: 0, width: 60, height: headerHeight))
+        let sectionLabel = UILabel.init(frame: CGRect.init(x: 15, y: 0, width: 60, height: headerHeight))
         sectionLabel.text = "News"
         sectionLabel.font = UIFont.boldSystemFont(ofSize: 22)
         sectionLabel.textColor = UIColor.darkGray
@@ -29,8 +30,8 @@ class NewsCollectionView: UIView
         let nib = UINib(nibName: newsCellID, bundle: nil)
         let screen = UIScreen.main.bounds
         let l = UICollectionViewFlowLayout.init();l.scrollDirection = .horizontal
-        l.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
-        let f = CGRect.init(x: 0, y: headerHeight, width: screen.width, height: totalHeight-headerHeight)
+        l.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let f = CGRect.init(x: 0, y: headerHeight+5, width: screen.width-30, height: totalHeight-headerHeight)
         collectionView = UICollectionView.init(frame: f, collectionViewLayout: l)
         collectionView.register( nib, forCellWithReuseIdentifier: newsCellID)
         collectionView.delegate = self
@@ -51,7 +52,7 @@ class NewsCollectionView: UIView
         if newsData.count > 0
         {
             self.translatesAutoresizingMaskIntoConstraints = false
-            let heightConstraint = self.heightAnchor.constraint(equalToConstant: totalHeight)
+            let heightConstraint = self.heightAnchor.constraint(equalToConstant: totalHeight+5)
             NSLayoutConstraint.activate([heightConstraint])
         }
         else
@@ -68,7 +69,7 @@ extension NewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: collectionView.frame.width-16, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width-10, height: collectionView.frame.height)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
@@ -86,13 +87,7 @@ extension NewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsCellID, for: indexPath) as! NewsCell
         cell.titleLabel.text = newsData[indexPath.row].title
         cell.sourceLabel.text = newsData[indexPath.row].news_source
-        cell.setImageFrom(url: newsData[indexPath.row].image!)
-        //cell.dateView.text = n[indexPath.row].created_at
-        //cell.textLabel.text = tweetsData[indexPath.row].text
-        //cell.authorLabel.text = tweetsData[indexPath.row].user.name
-        //cell.setHashTags(hashtags: tweetsData[indexPath.row].entities.hashtags)
+        cell.loadImage(url: newsData[indexPath.row].image)
         return cell
     }
-    
-    
 }

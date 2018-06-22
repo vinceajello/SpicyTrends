@@ -17,8 +17,9 @@ class HomeViewController: UIViewController
     @IBOutlet private weak var collectionView: TrendsCollectionView!
     @IBOutlet private weak var accessoryView: UIView!
     @IBOutlet private weak var date: UILabel!
-
+    
     let netManager = NetworkManager.init()
+    var alertView:NoTrendsAlertView!
     var loader:AJProgressView!
     
     var transitionImage = UIImage.init(named: "Placeholder")
@@ -38,57 +39,32 @@ class HomeViewController: UIViewController
         let topInset:CGFloat = 90
         collectionView.customDelegate = self
         collectionView.frame = CGRect.init(x: 0, y: topInset, width: self.view.frame.width, height: self.view.frame.height-topInset)
-
-        // Get trends data
-        getTrends(region: regionMenu.currentRegion)
-    }
-    
-    func getTrends(region:String)
-    {
-        loader.show()
-     
-        collectionView.trends = []
-        TrendsData.shared.wikis = [:]
-        TrendsData.shared.news = [:]
-        collectionView.reloadData()
         
-    
-        netManager.getGTrends(region: region)
-        {
-            (success, trends) in
-            
-            if success != true && trends.count > 0
-            {
-                self.showNoTrendsAlert(error: "Error: Unable to get Trends.")
-                return
-            }
-            
-            var trendslist:[Trend] = []
-            if trends.count > 15
-            {
-                for i in 0...14
-                {
-                    trendslist.append(trends[i])
-                }
-            }
-            else {trendslist = trends}
-            
-            DispatchQueue.main.async
-            {
-                self.loader.hide()
-                self.collectionView.setTrends(trends: trendslist)
-            }
-        }
+        // start firstr loading after a little delay
+        self.reloadData()
     }
     
-    func showNoTrendsAlert(error:String)
+    func reloadDataAfterDelay(delay:TimeInterval)
     {
-        print("No Trends Found - Error \(error)")
-
-        loader.hide()
-        print("No Trends Found")
+        DispatchQueue.main.async
+        {
+            self.loader.show()
+            self.date.text = "- - -"
+            
+            self.collectionView.trends = []
+            TrendsData.shared.trends = []
+            self.collectionView.reloadData()
+        }
+        
+        self.perform(#selector(getTrendsData(region:)), with: regionMenu.currentRegion, afterDelay: delay)
     }
-
+    
+    func reloadData()
+    {
+        // Get trends data
+        self.reloadDataAfterDelay(delay: 0)
+    }
+    
     override func didReceiveMemoryWarning()
     {super.didReceiveMemoryWarning()}
 }
@@ -99,6 +75,33 @@ class HomeViewController: UIViewController
 
 extension HomeViewController:RegionMenuDelegate
 {
+    func regionMenuDidOpen()
+    {
+        if alertView != nil
+        {
+            UIView.animate(withDuration: 0.5)
+            {
+                self.alertView.alpha = 0
+            }
+        }
+    }
+    
+    func regionMenuDidClose()
+    {
+        self.perform(#selector(displayAlertView), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc func displayAlertView()
+    {
+        if alertView != nil
+        {
+            UIView.animate(withDuration: 0.5)
+            {
+                self.alertView.alpha = 1
+            }
+        }
+    }
+    
     func drawAccessoryView()
     {
         accessoryView.backgroundColor = UIColor.clear
@@ -117,7 +120,9 @@ extension HomeViewController:RegionMenuDelegate
     func didSelectRegion(code: String)
     {
         print("Selected Region : \(code)")
-        self.getTrends(region:code)
+        regionMenu.currentRegion = code
+        print("CURRENT COUTRY : \(regionMenu.currentRegion)")
+        reloadDataAfterDelay(delay:1)
     }
 }
 
@@ -139,64 +144,70 @@ extension HomeViewController
     }
 }
 
+//
+// MARK: Network request
+//
 
+extension HomeViewController
+{
+    @objc func getTrendsData(region:String)
+    {
+        netManager.getTrendsData(region: region)
+        {
+            (success, response) in
+            
+            if success != true || response?.data.count == 0
+            {self.showNoTrendsAlert(error: "Error: Unable to get Trends.");return}
+            
+            guard let trends = response?.data else
+            {self.showNoTrendsAlert(error: "Error: Unable to get Trends.");return}
 
+            DispatchQueue.main.async
+            {
+                self.loader.hide()
+                var time = response!.updatedAt
+                time.removeLast(3)
+                
+                self.date.text = "Last update: "+time
+                self.collectionView.setTrends(trends: trends)
+            }
+        }
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+//
+// MARK: Navigation
+//
 
 extension HomeViewController: TrendsCollectionViewDelegate, DetailsViewControllerDelegate
 {
-    func setTransitionImage(image: UIImage)
-    {
-        transitionImage = image
-    }
-    
     func trendDidSelected(indexPath: IndexPath)
     {
-        guard let trend = collectionView?.trends[indexPath.row] else { return }
-        print("Trend Selected \(trend.title)")
-        
-        // update sizes for transition
         let attributes = collectionView.layoutAttributesForItem(at: indexPath)
-        let cellRect = attributes?.frame;
-        transitionFrame = collectionView.convert(cellRect!, to: collectionView.superview)
-        
-        // reset the transition image
-        transitionImage = UIImage.init(named: "Placeholder")
-        
+        let cellFrame = collectionView.convert((attributes?.frame)!, to: self.view)
+        let cell = collectionView!.cellForItem(at: indexPath)
+        let cellRender = image(with: cell!)
+
+        transitionImage = cellRender
+        transitionFrame = cellFrame
+
         // push the new view controller
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let detailsController = storyBoard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        let detailsController =
+        storyBoard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
         detailsController.country = regionMenu.currentRegion
         detailsController.rank = indexPath.row
         detailsController.trend = collectionView.trends[indexPath.row]
         detailsController.delegate = self
+        detailsController.transitionFrame = cellFrame
         self.navigationController?.pushViewController(detailsController, animated: true)
     }
+    
+    func setTransitionImage(image: UIImage)
+    {
+        
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 extension HomeViewController: ZoomTransitionSourceDelegate
 {
@@ -206,25 +217,72 @@ extension HomeViewController: ZoomTransitionSourceDelegate
         imageView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = true
+        imageView.clipsToBounds = true
         return imageView
     }
     
     func transitionSourceImageViewFrame(forward: Bool) -> CGRect
     {
         let y = transitionFrame.origin.y
-        return CGRect.init(x: 0, y: y , width: self.view.frame.width, height: transitionFrame.size.height)
+        return CGRect.init(x: 15, y: y , width: self.view.frame.width-30, height: transitionFrame.size.height)
+    }
+    
+    func image(with view: UIView) -> UIImage?
+    {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 1.0)
+        defer { UIGraphicsEndImageContext() }
+        if let context = UIGraphicsGetCurrentContext()
+        {
+            view.layer.render(in: context)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            return image
+        }
+        return nil
     }
 }
 
+//
+// MARK: No Trends Alert
+//
 
-
-
-
-
-
-
-
-
-
+extension HomeViewController: NoTrendsAlertViewDelegate
+{
+    func reloadButtonPressed()
+    {
+        UIView.animate(withDuration: 0.3, animations:
+        {
+            self.alertView.alpha = 0
+        })
+        { (success) in
+            
+            self.alertView.removeFromSuperview()
+            self.reloadDataAfterDelay(delay: 1)
+        }
+    }
+    
+    func showNoTrendsAlert(error:String)
+    {
+        print("No Trends Found - Error \(error)")
+        DispatchQueue.main.async
+        {
+            self.loader.hide()
+            self.date.text = "- - -"
+            self.showAlertView()
+        }
+    }
+    
+    func showAlertView()
+    {
+        DispatchQueue.main.async
+        {
+            if self.alertView == nil
+            {self.alertView = NoTrendsAlertView.init(frame: CGRect.init(x: 0, y: 0,
+            width: self.view.frame.width, height: self.view.frame.height))}
+            self.alertView.delegate = self
+            self.alertView.alpha = 1
+            self.view.addSubview(self.alertView)
+        }
+    }
+}
 
 

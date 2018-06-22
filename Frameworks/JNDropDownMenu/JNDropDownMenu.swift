@@ -42,6 +42,8 @@ public extension JNDropDownMenuDataSource {
 public protocol JNDropDownMenuDelegate: class {
     func didSelectRow(at indexPath: JNIndexPath, for menu: JNDropDownMenu)
     func searchTextDidChange(text:String)
+    func menuDidOpen()
+    func menuDidClose()
 }
 
 public class JNDropDownMenu: UIView {
@@ -138,13 +140,26 @@ public class JNDropDownMenu: UIView {
     {
         self.parentView = parentView
         let screenSize = UIScreen.main.bounds.size
-        super.init(frame: CGRect(origin: CGPoint(x: origin.x, y :origin.y),
-                                 size: CGSize(width: width ?? screenSize.width, height: height)))
-        self.origin = origin
+        super.init(frame: CGRect(origin: origin, size: CGSize(width: width ?? screenSize.width, height: height)))
         self.currentSelectedMenuIndex = -1
         self.show = false
+        
+        // search bar by mspaki
+        let distance:CGFloat = 3
+        let zero:CGFloat = 64
+        
+        let searchBarY:CGFloat = zero + distance
+        searchBar = UISearchBar.init(frame: CGRect.init(x: 0, y: searchBarY, width: screenSize.width-30, height: 44))
+        searchBar.frame.origin.x = ((screenSize.width - 30) / 2) - 125
+        searchBar.layer.cornerRadius = 4
+        searchBar.clipsToBounds = true
+        searchBar.barTintColor = .white
+        searchBar.delegate = self
+        searchBar.placeholder = "Search"
+        
         //tableView init
-        self.tableView = UITableView.init(frame: CGRect(origin: CGPoint(x: 0, y :130), size: CGSize(width: 250, height: 0)))
+        let tableViewY:CGFloat = searchBarY + searchBar.frame.size.height + distance
+        self.tableView = UITableView.init(frame: CGRect(origin: CGPoint(x: 0, y :tableViewY), size: CGSize(width: 250, height: 0)))
         self.tableView.frame.origin.x = screenSize.width / 2 - 125
         self.tableView.rowHeight = 38
         self.tableView.dataSource = self
@@ -152,15 +167,6 @@ public class JNDropDownMenu: UIView {
         self.tableView.layer.cornerRadius = 8
         self.tableView.clipsToBounds = true
         self.tableView.scrollIndicatorInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: -6)
-        
-        // search bar by mspaki
-        searchBar = UISearchBar.init(frame: CGRect.init(x: 0, y: 90, width: 250, height: 44))
-        searchBar.frame.origin.x = screenSize.width / 2 - 125
-        searchBar.layer.cornerRadius = 4
-        searchBar.clipsToBounds = true
-        searchBar.barTintColor = .white
-        
-        searchBar.delegate = self
 
         
         //self tapped
@@ -244,7 +250,8 @@ public class JNDropDownMenu: UIView {
 // Tag gesture
 extension JNDropDownMenu {
 
-    @objc func menuTapped(paramSender: UITapGestureRecognizer) {
+    @objc func menuTapped(paramSender: UITapGestureRecognizer)
+    {
         let touchPoint = paramSender.location(in: self)
 
         //calculate index
@@ -258,14 +265,19 @@ extension JNDropDownMenu {
             self.bgLayers[i].backgroundColor = cellBgColor.cgColor
         }
 
-        if tapIndex == self.currentSelectedMenuIndex && self.show {
+        if tapIndex == self.currentSelectedMenuIndex && self.show
+        {
+            guard let _ = delegate?.menuDidClose() else {return}
             self.animate(indicator: indicators[self.currentSelectedMenuIndex], background: self.backGroundView, tableView: self.tableView, title: titles[self.currentSelectedMenuIndex], forward: false, completion: { _ in
                 self.currentSelectedMenuIndex = tapIndex
                 self.show = false
             })
             self.bgLayers[tapIndex].backgroundColor = cellBgColor.cgColor
 
-        } else {
+        }
+        else
+        {
+            guard let _ = delegate?.menuDidOpen() else {return}
             self.currentSelectedMenuIndex = tapIndex
             self.tableView.reloadData()
             self.animate(indicator: indicators[tapIndex], background: self.backGroundView, tableView: self.tableView, title: titles[tapIndex], forward: true, completion: { _ in
@@ -276,10 +288,12 @@ extension JNDropDownMenu {
 
     }
 
-    @objc func backgroundTapped(paramSender: UITapGestureRecognizer? = nil) {
+    @objc func backgroundTapped(paramSender: UITapGestureRecognizer? = nil)
+    {
         self.animate(indicator: indicators[currentSelectedMenuIndex], background: self.backGroundView, tableView: self.tableView, title: titles[self.currentSelectedMenuIndex], forward: false) { _ in
             self.show = false
         }
+        guard let _ = delegate?.menuDidClose() else {return}
         self.bgLayers[self.currentSelectedMenuIndex].backgroundColor = cellBgColor.cgColor
     }
 
@@ -297,14 +311,16 @@ extension JNDropDownMenu {
     }
 
     func animateBackGroundView(view: UIView, show: Bool, completion: @escaping ((Bool) -> Swift.Void)) {
-        if show {
+        if show
+        {
             parentView.superview?.addSubview(view)
             //view.superview?.addSubview(self)
             UIView.animate(withDuration: 0.2, animations: {
                 view.backgroundColor = UIColor.init(white: 0.0, alpha: 0.3)
                 completion(true)
             })
-        } else {
+        } else
+        {
             UIView.animate(withDuration: 0.2, animations: {
                 view.backgroundColor = UIColor.init(white: 0.0, alpha: 0.0)
             }, completion: { _ in

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6107A26120D8115700C8281E /* NoTrendsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107A26020D8115700C8281E /* NoTrendsAlertView.swift */; };
+		6107A26320DA9C9100C8281E /* Types+Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107A26220DA9C9100C8281E /* Types+Classes.swift */; };
 		6132A29520CA82E70062BCFB /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6132A28D20CA82E60062BCFB /* UIImageView+extension.swift */; };
 		6132A29620CA82E70062BCFB /* ZoomNavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6132A28E20CA82E60062BCFB /* ZoomNavigationControllerDelegate.swift */; };
 		6132A29720CA82E70062BCFB /* ZoomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6132A28F20CA82E60062BCFB /* ZoomInteractiveTransition.swift */; };
@@ -38,7 +40,6 @@
 		61D8FA5620B9F79A000EB35D /* VegaScrollFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA5520B9F79A000EB35D /* VegaScrollFlowLayout.swift */; };
 		61D8FA5820B9F7FD000EB35D /* TrendsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA5720B9F7FD000EB35D /* TrendsCollectionView.swift */; };
 		61D8FA5A20B9FD3B000EB35D /* TrendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA5920B9FD3B000EB35D /* TrendCell.swift */; };
-		61D8FA5C20B9FE99000EB35D /* Trend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA5B20B9FE99000EB35D /* Trend.swift */; };
 		61D8FA5E20BA043D000EB35D /* TrendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61D8FA5D20BA043D000EB35D /* TrendCell.xib */; };
 		61D8FA6320BA0B60000EB35D /* AZGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA6120BA0B60000EB35D /* AZGradientView.swift */; };
 		61D8FA6420BA0B60000EB35D /* AZVerticalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA6220BA0B60000EB35D /* AZVerticalGradientView.swift */; };
@@ -48,11 +49,13 @@
 		61D8FA7220BA200E000EB35D /* UserRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA7120BA200E000EB35D /* UserRegion.swift */; };
 		61D8FA7820BAFFB9000EB35D /* AJProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA7720BAFFB9000EB35D /* AJProgressView.swift */; };
 		61D8FA7A20BB193C000EB35D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA7920BB193C000EB35D /* NetworkManager.swift */; };
-		61D8FA7C20BC91A6000EB35D /* WikiDescriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA7B20BC91A6000EB35D /* WikiDescriptions.swift */; };
+		61D8FA7C20BC91A6000EB35D /* TrendsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA7B20BC91A6000EB35D /* TrendsData.swift */; };
 		61D8FA8320BEB5BE000EB35D /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA8220BEB5BE000EB35D /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6107A26020D8115700C8281E /* NoTrendsAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTrendsAlertView.swift; sourceTree = "<group>"; };
+		6107A26220DA9C9100C8281E /* Types+Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Types+Classes.swift"; sourceTree = "<group>"; };
 		6132A28D20CA82E60062BCFB /* UIImageView+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
 		6132A28E20CA82E60062BCFB /* ZoomNavigationControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomNavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		6132A28F20CA82E60062BCFB /* ZoomInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomInteractiveTransition.swift; sourceTree = "<group>"; };
@@ -87,7 +90,6 @@
 		61D8FA5520B9F79A000EB35D /* VegaScrollFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VegaScrollFlowLayout.swift; sourceTree = "<group>"; };
 		61D8FA5720B9F7FD000EB35D /* TrendsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCollectionView.swift; sourceTree = "<group>"; };
 		61D8FA5920B9FD3B000EB35D /* TrendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCell.swift; sourceTree = "<group>"; };
-		61D8FA5B20B9FE99000EB35D /* Trend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trend.swift; sourceTree = "<group>"; };
 		61D8FA5D20BA043D000EB35D /* TrendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrendCell.xib; sourceTree = "<group>"; };
 		61D8FA6120BA0B60000EB35D /* AZGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AZGradientView.swift; sourceTree = "<group>"; };
 		61D8FA6220BA0B60000EB35D /* AZVerticalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AZVerticalGradientView.swift; sourceTree = "<group>"; };
@@ -98,7 +100,7 @@
 		61D8FA7120BA200E000EB35D /* UserRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegion.swift; sourceTree = "<group>"; };
 		61D8FA7720BAFFB9000EB35D /* AJProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJProgressView.swift; sourceTree = "<group>"; };
 		61D8FA7920BB193C000EB35D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		61D8FA7B20BC91A6000EB35D /* WikiDescriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiDescriptions.swift; sourceTree = "<group>"; };
+		61D8FA7B20BC91A6000EB35D /* TrendsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsData.swift; sourceTree = "<group>"; };
 		61D8FA8220BEB5BE000EB35D /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 		61D8FA3C20B9F4DF000EB35D /* SpicyTrends */ = {
 			isa = PBXGroup;
 			children = (
+				61D8FA3D20B9F4DF000EB35D /* AppDelegate.swift */,
 				6132A29C20CA88A00062BCFB /* NavController.swift */,
 				61D8FA7520BA51A7000EB35D /* Types+Classes */,
 				61D8FA7620BA51BD000EB35D /* Utilities */,
@@ -252,9 +255,9 @@
 		61D8FA7520BA51A7000EB35D /* Types+Classes */ = {
 			isa = PBXGroup;
 			children = (
-				61D8FA5B20B9FE99000EB35D /* Trend.swift */,
 				61D8FA6D20BA1AA0000EB35D /* Countries.swift */,
-				61D8FA7B20BC91A6000EB35D /* WikiDescriptions.swift */,
+				61D8FA7B20BC91A6000EB35D /* TrendsData.swift */,
+				6107A26220DA9C9100C8281E /* Types+Classes.swift */,
 			);
 			path = "Types+Classes";
 			sourceTree = "<group>";
@@ -262,10 +265,10 @@
 		61D8FA7620BA51BD000EB35D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				61D8FA3D20B9F4DF000EB35D /* AppDelegate.swift */,
 				61D8FA7120BA200E000EB35D /* UserRegion.swift */,
 				6176C96020BFE50600CA719B /* RegionMenuView.swift */,
 				6176C97A20C1B1D100CA719B /* TrendColors.swift */,
+				6107A26020D8115700C8281E /* NoTrendsAlertView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -349,9 +352,11 @@
 			files = (
 				6132A29F20D12FE40062BCFB /* NewsCollectionView.swift in Sources */,
 				6176C96620BFF26900CA719B /* TagButton.swift in Sources */,
+				6107A26120D8115700C8281E /* NoTrendsAlertView.swift in Sources */,
 				61D8FA4620B9F4DF000EB35D /* SpicyTrends.xcdatamodeld in Sources */,
 				6132A2A220D14E5E0062BCFB /* NewsCell.swift in Sources */,
 				61D8FA5820B9F7FD000EB35D /* TrendsCollectionView.swift in Sources */,
+				6107A26320DA9C9100C8281E /* Types+Classes.swift in Sources */,
 				6176C96120BFE50600CA719B /* RegionMenuView.swift in Sources */,
 				6176C96C20C0428E00CA719B /* WikipediaDescriptionView.swift in Sources */,
 				61D8FA5620B9F79A000EB35D /* VegaScrollFlowLayout.swift in Sources */,
@@ -362,7 +367,6 @@
 				6176C97720C139CA00CA719B /* MainImageView.swift in Sources */,
 				6176C96720BFF26900CA719B /* Extensions.swift in Sources */,
 				61D8FA6320BA0B60000EB35D /* AZGradientView.swift in Sources */,
-				61D8FA5C20B9FE99000EB35D /* Trend.swift in Sources */,
 				61D8FA7220BA200E000EB35D /* UserRegion.swift in Sources */,
 				6176C96820BFF26900CA719B /* TagsView.swift in Sources */,
 				6132A29720CA82E70062BCFB /* ZoomInteractiveTransition.swift in Sources */,
@@ -377,7 +381,7 @@
 				61D8FA8320BEB5BE000EB35D /* DetailsViewController.swift in Sources */,
 				6132A29620CA82E70062BCFB /* ZoomNavigationControllerDelegate.swift in Sources */,
 				61D8FA5320B9F50F000EB35D /* HomeViewController.swift in Sources */,
-				61D8FA7C20BC91A6000EB35D /* WikiDescriptions.swift in Sources */,
+				61D8FA7C20BC91A6000EB35D /* TrendsData.swift in Sources */,
 				61D8FA7A20BB193C000EB35D /* NetworkManager.swift in Sources */,
 				61D8FA6E20BA1AA0000EB35D /* Countries.swift in Sources */,
 				61D8FA5A20B9FD3B000EB35D /* TrendCell.swift in Sources */,
@@ -526,7 +530,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EZ8Q48MF9W;
+				DEVELOPMENT_TEAM = L2SQ7F4N43;
 				INFOPLIST_FILE = SpicyTrends/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -548,7 +552,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EZ8Q48MF9W;
+				DEVELOPMENT_TEAM = L2SQ7F4N43;
 				INFOPLIST_FILE = SpicyTrends/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (

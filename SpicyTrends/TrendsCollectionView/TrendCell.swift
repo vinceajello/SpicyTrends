@@ -8,23 +8,15 @@
 
 import UIKit
 
-protocol TrendCellDelegate
-{
-    func cellDidFinishLoading(indexPath:IndexPath)
-}
-
 class TrendCell: UICollectionViewCell
 {
-    let netManager = NetworkManager.init()
-    var delegate:TrendCellDelegate!
-    
-    @IBOutlet private weak var trendNameLabel: UILabel!
-    @IBOutlet private weak var countView: UIView!
+    @IBOutlet public weak var trendNameLabel: UILabel!
+    @IBOutlet public weak var countView: UIView!
     @IBOutlet public weak var countLabel: UILabel!
     
     @IBOutlet public weak var descriptionLabel: UILabel!
-    @IBOutlet public weak var activityView: UIActivityIndicatorView!
-    var loader: AJProgressView!
+    @IBOutlet public weak var sourceLabel: UILabel!
+    @IBOutlet public weak var rankView: UIImageView!
 
     var indexPath:IndexPath!
     
@@ -44,20 +36,24 @@ class TrendCell: UICollectionViewCell
         countView.clipsToBounds = true
         countView.layer.borderColor = UIColor.lightGray.cgColor
         countView.layer.borderWidth = 1
-        countView.backgroundColor = .clear
+        countView.backgroundColor = .white
         countLabel.adjustsFontSizeToFitWidth = true
         
         descriptionLabel.alpha = 0
-        descriptionLabel.textColor = UIColor.lightGray
+        descriptionLabel.textColor = UIColor.gray
+        descriptionLabel.backgroundColor = UIColor.clear
+        descriptionLabel.numberOfLines = 0
     }
     
     func configureWith(indexPath: IndexPath,trend:Trend)
     {
-        // set title
-        trendNameLabel.text = trend.title
-        
-        // set counter
-        countLabel.text = "\(indexPath.row + 1)"
+        // default
+        sourceLabel.text = ""
+        sourceLabel.alpha = 0
+        descriptionLabel.text = ""
+        descriptionLabel.alpha = 0
+        rankView.alpha = 0
+        rankView.backgroundColor = .clear
         
         // set indexPath
         self.indexPath = indexPath
@@ -68,106 +64,47 @@ class TrendCell: UICollectionViewCell
         countView.layer.borderColor = hColor.cgColor
         countLabel.textColor = hColor
         
-        // configure description wiki / news
-        self.configureDescription(word: trend.title)
-    }
-    
-    func configureDescription(word:String)
-    {
-        printSafe(string: "Configure cell with word : \(word)")
-        var news:[News] = []
-        var wiki = ""
-        if let w = TrendsData.shared.wikis[word] { wiki = w }
-        if let n = TrendsData.shared.news[word] { news = n }
-
-        if wiki.count > 0 || news.count > 0
+        switch trend.state
         {
-            printSafe(string: "News for \(word) : \(String(describing: news))")
-            printSafe(string: "Wiki for \(word) : \(String(describing: wiki))")
-            self.updateDescription(word: word)
+            case "same":
+                break
+            case "new":
+                rankView.alpha = 1
+                rankView.image = UIImage.init(named: "statusIconNEW")
+                break
+            case "up":
+                rankView.alpha = 1
+                rankView.image = UIImage.init(named: "statusIconUP")
+                break
+            case "down":
+                rankView.alpha = 1
+                rankView.image = UIImage.init(named: "statusIconDOWN")
+                break
+            default:
+                break
         }
-        else
-        {
-            printSafe(string: "!!! No news or wiki found for word \(word)")
-            activityView.startAnimating()
-            //self.getDescription(word: word)
-            self.perform(#selector(getDescription), with: word, afterDelay: 2)
-        }
-    }
-    
-  @objc func getDescription(word:String)
-    {
         
-        netManager.getDescriptionByKeyword(word: word)
+        if let n = trend.news
         {
-            (success, response) in
-            
-            self.activityView.stopAnimating()
-            self.activityView.alpha = 0
-            
-            if success != true
+            descriptionLabel.alpha = 1
+            descriptionLabel.text = n.news.first?.title
+            sourceLabel.alpha = 1
+            sourceLabel.text = n.news.first?.news_source
+            sourceLabel.font = UIFont.systemFont(ofSize: 15)
+            return
+        }
+        else if let w = trend.wiki
+        {
+            if w.range(of:"may refer to:") == nil && w.count > 0
             {
-                TrendsData.shared.status[word] = "network-error"
-                //TrendsData.shared.news[word] = "network-error"
-                //TrendsData.shared.wikis[word] = "network-error"
+                descriptionLabel.alpha = 1
+                descriptionLabel.text = w
+                sourceLabel.alpha = 1
+                sourceLabel.text = "Wikipedia"
+                sourceLabel.font = UIFont(name: "Hoefler Text", size: 15)
                 return
             }
-            
-            var news:[News] = []
-            var wiki = "no-data"
-            
-            if let n = response?.news.news
-            { if n.count > 0 { news = n } }
-            
-            if let w = response?.wiki
-            { if w.count > 0 { wiki = w } }
-            
-            self.printSafe(string: "News Response for word \(word) : \(news)")
-            self.printSafe(string: "Wiki Response for word \(word) : \(wiki)")
-            
-            TrendsData.shared.news[word] = news
-            TrendsData.shared.wikis[word] = wiki
-            
-            self.updateDescription(word: word)
-            guard let _ = self.delegate?.cellDidFinishLoading(indexPath: self.indexPath) else { return }
         }
-    }
-    
-    func updateDescription(word:String)
-    {
-        var news = "";var wiki = ""
-        if let w = TrendsData.shared.wikis[word] { wiki = w }
-        if let n = TrendsData.shared.news[word]
-        {
-            if n.count > 0
-            {
-                news = n[0].title
-            }
-        }
-        
-        if news.count > 0 && news != "no-data"
-        {
-            self.descriptionLabel.text = news
-            self.descriptionLabel.alpha = 1
-        }
-        else if wiki.count > 0 && wiki != "no-data"
-        {
-            self.descriptionLabel.text = wiki
-            self.descriptionLabel.alpha = 1
-        }
-        else
-        {
-            self.descriptionLabel.text = ""
-            self.descriptionLabel.alpha = 0
-        }
-        self.activityView.alpha = 0
-    }
-}
 
-extension TrendCell
-{
-    func printSafe(string:String)
-    {
-        print("Quick_Disable \(string)")
     }
 }

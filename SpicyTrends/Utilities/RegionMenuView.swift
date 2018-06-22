@@ -11,6 +11,8 @@ import UIKit
 protocol RegionMenuDelegate
 {
     func didSelectRegion(code:String)
+    func regionMenuDidOpen()
+    func regionMenuDidClose()
 }
 
 class RegionMenuView: UIView
@@ -54,20 +56,40 @@ class RegionMenuView: UIView
 
 extension RegionMenuView: JNDropDownMenuDelegate, JNDropDownMenuDataSource
 {
+    func menuDidOpen()
+    {
+        print("menuDidOpen")
+        regionMenu.searchBar.text = ""
+        searchTextDidChange(text: "")
+        guard let _ = delegate?.regionMenuDidOpen() else { return }
+    }
+    
+    func menuDidClose()
+    {
+        print("menuDidClose")
+        guard let _ = delegate?.regionMenuDidClose() else { return }
+    }
+    
     func searchTextDidChange(text: String)
     {
         if text.count > 0
         {
-            // xxx
-            
-            tableDatas = []
+            var newData:[String] = []
+            for c in allCountries.all
+            {
+               let sub = c.value.prefix(text.count)
+               if sub.lowercased() == text.lowercased()
+               {
+                    newData.append(c.key)
+               }
+            }
+            tableDatas = newData
         }
         else
         {
             tableDatas = allCountries.allCodes
         }
         regionMenu.tableView.reloadData()
-        print(text)
     }
     
     func numberOfColumns(in menu: JNDropDownMenu) -> NSInteger {return 1}

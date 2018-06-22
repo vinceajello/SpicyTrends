@@ -41,6 +41,7 @@ class MainImageView: UIView
     {
         DispatchQueue.main.async
         {
+            /*
             self.netManager.getImage(word:word)
             {
                 (success, response) in
@@ -54,6 +55,7 @@ class MainImageView: UIView
                 print("WIKI IMAGE LINK : \(response)")
                 self.imageView.downloadedFrom(link: response)
             }
+            */
         }
     }
 }

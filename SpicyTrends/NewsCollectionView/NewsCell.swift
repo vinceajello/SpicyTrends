@@ -26,62 +26,66 @@ class NewsCell: UICollectionViewCell
     {
         super.awakeFromNib()
         
-        self.backgroundColor = UIColor.lightText
-        self.layer.cornerRadius = 4
+        self.backgroundColor = UIColor.white
+        self.layer.cornerRadius = 6
         self.clipsToBounds = true
         
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderWidth = 1
     }
     
    
 }
 
-
 extension NewsCell
 {
-    func setImageFrom(url:String)
+    func loadImage(url:String)
     {
-        if let cached_image = getImageFromCache(url: url)
-        {
-            // set cached_image
-            imageView.image = cached_image
-            return
-        }
+        print(url)
         
-        // download image
-        downloadImage(link: url)
-    }
-    
-    func getImageFromCache(url:String) -> UIImage?
-    {
-        if let image = TrendsData.shared.newsImages[url]
+        let fixedUrl = "http:"+url
+        
+        let image = TrendsData.shared.newsImages[fixedUrl]
+        if image == nil
         {
-            return image
+            self.downloadImage(link: fixedUrl)
         }
-        return nil
+        else
+        {
+            if let i = image
+            {
+                self.setImage(url:fixedUrl,image: i!)
+            }
+        }
+    }
+
+    func setImage(url:String,image:UIImage)
+    {
+        TrendsData.shared.newsImages[url] = image
+        DispatchQueue.main.async()
+        {
+            self.imageView.image = image
+        }
     }
     
-    func downloadImage(link:String)
-    {
-        TrendsData.shared.newsImages[link] = defaultImage
+     func downloadImage(link:String)
+     {
         guard let url = URL(string: link) else { return }
-        
+     
         URLSession.shared.dataTask(with: url)
         {
             data, response, error in
-            
+     
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
                 let data = data, error == nil,
                 let image = UIImage(data: data)
                 else { return }
-            
-            
-            TrendsData.shared.newsImages[link] = image
-            DispatchQueue.main.async()
-            {
-                self.imageView.image = image
-            }
+        
+            self.setImage(url:link,image: image)
         }.resume()
     }
 }
+
+

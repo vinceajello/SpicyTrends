@@ -15,15 +15,14 @@ protocol TrendsCollectionViewDelegate
 
 class TrendsCollectionView: UICollectionView
 {
-    public var firstLoad:Bool = false
     public var trends: [Trend] = []
     let netManager = NetworkManager.init()
     
     fileprivate let trendCellID = "TrendCell"
     private var itemHeight: CGFloat = 60 // 130
-    private let lineSpacing: CGFloat = 10
-    private let xInset: CGFloat = 5
-    private let topInset: CGFloat = 0
+    private let lineSpacing: CGFloat = 15
+    private let xInset: CGFloat = 15
+    private let topInset: CGFloat = 15
     
     var customDelegate: TrendsCollectionViewDelegate?
     
@@ -55,57 +54,38 @@ class TrendsCollectionView: UICollectionView
     
     func setTrends(trends:[Trend])
     {
-        firstLoad = true
+        TrendsData.shared.trends = trends
         self.trends = trends
         self.reloadData()
     }
 }
 
-extension TrendsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TrendCellDelegate
+extension TrendsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
-    
-    func cellDidFinishLoading(indexPath: IndexPath)
-    {
-        //let layout = self.collectionViewLayout as! VegaScrollFlowLayout
-        //layout.invalidateLayout()
-        
-        let layout = VegaScrollFlowLayout()
-        layout.minimumLineSpacing = lineSpacing
-        layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        let itemWidth = UIScreen.main.bounds.width - 2 * xInset
-        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        self.setCollectionViewLayout(layout, animated: false)
-        
-        if firstLoad == true
-        {
-            firstLoad = false
-            //xself.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        let itemWidth = UIScreen.main.bounds.width - 2 * xInset
-        let smallSize = CGSize(width: itemWidth, height: 70)
-        let largeSize = CGSize(width: itemWidth, height: 130)
+        let itemWidth = UIScreen.main.bounds.width - (2 * xInset)
+        let smallSize = CGSize(width: itemWidth, height: 57)
+        var largeSize = CGSize(width: itemWidth, height: 0)
+        let baseHeight:CGFloat = 65
+        let sourceHeight:CGFloat = 33
 
-        let word = trends[indexPath.row]
-        guard let news = TrendsData.shared.news[word.title] else {return smallSize}
-        guard let wiki = TrendsData.shared.wikis[word.title] else {return smallSize}
+        let trend = trends[indexPath.row]
         
-        if news.count > 0
+        if let n = trend.news?.news
         {
+            let h = heightForView(text: (n.first?.title)!, width: itemWidth-30)
+            largeSize.height = baseHeight + h + sourceHeight
             return largeSize
         }
         
-        if wiki.count > 0
+        if let w = trend.wiki
         {
-            if wiki != "no-data"
+            if w.range(of:"may refer to:") == nil && w.count > 0
             {
                 return largeSize
             }
         }
-        
         return smallSize
     }
     
@@ -116,15 +96,29 @@ extension TrendsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trendCellID, for: indexPath) as! TrendCell
         let trend = trends[indexPath.row]
-        cell.delegate = self
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trendCellID, for: indexPath) as! TrendCell
+        cell.trendNameLabel.text = trend.title
+        cell.countLabel.text = "\(indexPath.row + 1)"
         cell.configureWith(indexPath: indexPath, trend: trend)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {        
+    {
         guard let _ = customDelegate?.trendDidSelected(indexPath: indexPath) else { return }
     }
+    
+    func heightForView(text:String, width:CGFloat) -> CGFloat
+    {
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.text = text
+        label.sizeToFit()
+        
+        return label.frame.height
+    }
 }
+
+

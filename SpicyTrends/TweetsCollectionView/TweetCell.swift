@@ -19,8 +19,12 @@ class TweetCell: UICollectionViewCell
     {
         super.awakeFromNib()
         
-        self.layer.cornerRadius = 8
+        self.layer.cornerRadius = 6
         self.clipsToBounds = true
+        self.backgroundColor = UIColor.white
+        
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderWidth = 1
     }
     
     func setHashTags(hashtags:[TwitterHashtag])
@@ -33,6 +37,6 @@ class TweetCell: UICollectionViewCell
         if array.count > 0
         {string = array.joined(separator: " ")}
         
-        hashtagsLabel.text = string
+        //hashtagsLabel.text = string
     }
 }

@@ -60,6 +60,7 @@ public class JNDropDownMenu: UIView {
     //data source
     var array: [String] = []
     //layers array
+    var titleImage:UIImageView!
     var titles: [CATextLayer] = []
     var indicators: [CAShapeLayer] = []
     var bgLayers: [CALayer] = []
@@ -108,7 +109,19 @@ public class JNDropDownMenu: UIView {
                                         y: Double(self.frame.size.height / 2))
             let titleString = self.datasource?.titleFor(column: i, menu: self)
             let title = self.createTextLayer(string: titleString!, color: self.textColor, point: titlePosition)
-            self.layer.addSublayer(title)
+            
+            if menuType == .Countries
+            {
+                self.layer.addSublayer(title)
+            }
+            else
+            {
+                titleImage = UIImageView.init(frame: CGRect.init(x: 0, y: 10, width: 90, height: 15))
+                titleImage.image = UIImage.init(named: "GoogleSourcesIcon")
+                titleImage.center.x = self.center.x
+                self.addSubview(titleImage)
+            }
+            
             tempTitles.append(title)
             
             // Flag image
@@ -297,6 +310,10 @@ extension JNDropDownMenu {
         if tapIndex == self.currentSelectedMenuIndex && self.show
         {
             guard let _ = delegate?.menuDidClose() else {return}
+            
+            if searchBar != nil { searchBar.resignFirstResponder() }
+            
+            searchBar.resignFirstResponder()
             self.animate(indicator: indicators[self.currentSelectedMenuIndex], background: self.backGroundView, tableView: self.tableView, title: titles[self.currentSelectedMenuIndex], forward: false, completion: { _ in
                 self.currentSelectedMenuIndex = tapIndex
                 self.show = false
@@ -322,6 +339,7 @@ extension JNDropDownMenu {
         self.animate(indicator: indicators[currentSelectedMenuIndex], background: self.backGroundView, tableView: self.tableView, title: titles[self.currentSelectedMenuIndex], forward: false) { _ in
             self.show = false
         }
+        if searchBar != nil { searchBar.resignFirstResponder() }
         guard let _ = delegate?.menuDidClose() else {return}
         self.bgLayers[self.currentSelectedMenuIndex].backgroundColor = cellBgColor.cgColor
     }

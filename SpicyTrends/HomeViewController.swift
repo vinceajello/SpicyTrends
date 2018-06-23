@@ -15,7 +15,8 @@ class HomeViewController: UIViewController
     let userRegion = UserRegion.init()
     
     var sourcesMenu:SourcesMenuView!
-    
+    var aboutView:AboutView!
+
     @IBOutlet private weak var collectionView: TrendsCollectionView!
     @IBOutlet private weak var accessoryView: UIView!
     @IBOutlet private weak var date: UILabel!
@@ -26,6 +27,11 @@ class HomeViewController: UIViewController
     
     var transitionImage = UIImage.init(named: "Placeholder")
     var transitionFrame = CGRect.init(x: 0, y: 0, width: 0, height: 0)
+    
+    @IBAction func goToAbouView(_ sender: Any)
+    {
+        showAboutView()
+    }
     
     override func viewDidLoad()
     {
@@ -315,6 +321,22 @@ extension HomeViewController: NoTrendsAlertViewDelegate
             self.view.addSubview(self.alertView)
         }
     }
+    
+    
 }
 
+
+extension HomeViewController
+{
+    func showAboutView()
+    {
+        DispatchQueue.main.async
+        {
+            if self.aboutView == nil
+            {self.aboutView = AboutView.init(frame: CGRect.init(x: 0, y: 0,
+            width: self.view.frame.width, height: self.view.frame.height))}
+            self.view.addSubview(self.aboutView)
+        }
+    }
+}
 

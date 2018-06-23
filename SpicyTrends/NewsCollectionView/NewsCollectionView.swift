@@ -36,7 +36,7 @@ class NewsCollectionView: UIView
         collectionView.register( nib, forCellWithReuseIdentifier: newsCellID)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = false
         self.addSubview(collectionView)
         
         self.clipsToBounds = true

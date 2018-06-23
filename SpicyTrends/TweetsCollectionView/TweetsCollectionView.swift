@@ -44,13 +44,12 @@ class TweetsCollectionView: UIView
         collectionView.register( nib, forCellWithReuseIdentifier: tweetCellID)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = false
         self.addSubview(collectionView)
         
         self.clipsToBounds = false
         self.backgroundColor = UIColor.clear
         collectionView.backgroundColor = UIColor.clear
-        
     }
     
     func startLoader()

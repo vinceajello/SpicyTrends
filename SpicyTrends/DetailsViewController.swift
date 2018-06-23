@@ -73,6 +73,7 @@ class DetailsViewController: UIViewController
         switch trend.state
         {
             case "same":
+                rankImage.backgroundColor = .red
                 break
             case "new":
                 rankImage.image = UIImage.init(named: "statusIconNEW")
@@ -84,6 +85,7 @@ class DetailsViewController: UIViewController
                 rankImage.image = UIImage.init(named: "statusIconDOWN")
                 break
             default:
+                rankImage.backgroundColor = .black
                 break
         }
         

@@ -31,7 +31,8 @@ class NoTrendsAlertView: UIView
         
         let alertW = frame.width - (LRBorder * 2)
         var alertH = frame.height - (TBBOrder * 2) - navigationBarHeight
-        alertH = 280 // fixed to 280
+        
+        alertH = 330 // fixed to 280
         let alertFrame = CGRect.init(x: LRBorder, y: TBBOrder + navigationBarHeight, width: alertW, height: alertH)
         let containerView = UIView.init(frame: alertFrame)
         containerView.layer.shadowRadius = 4
@@ -53,10 +54,10 @@ class NoTrendsAlertView: UIView
         topRightButton.frame = TRButtonFrame
         topRightButton.backgroundColor = UIColor.lightText
         topRightButton.setTitle("R", for: .normal)
-        containerView.addSubview(topRightButton)
+        //containerView.addSubview(topRightButton)
         
-        let logoSize:CGFloat = 130
-        let logoYOffset:CGFloat = 100
+        let logoSize:CGFloat = 90
+        let logoYOffset:CGFloat = 90
         let logoX:CGFloat = (containerView.frame.width / 2) - (logoSize / 2)
         let logoY:CGFloat = (containerView.frame.height / 2) - (logoSize / 2) - logoYOffset
         let coldLogoView = UIImageView.init(frame: CGRect.init(x: logoX, y: logoY, width: logoSize, height: logoSize))
@@ -71,28 +72,33 @@ class NoTrendsAlertView: UIView
         let titleLabel = UILabel.init(frame: CGRect.init(x: 0, y: titleY, width: containerView.frame.width, height: 30))
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor.darkGray
-        titleLabel.font = UIFont.systemFont(ofSize: 22)
-        titleLabel.text = "Cold Times 😵"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        titleLabel.text = "Cold times..."
         containerView.addSubview(titleLabel)
         
         let descriptionY = titleLabel.frame.origin.y + titleLabel.frame.height + 5
-        let descriptionLabel = UILabel.init(frame: CGRect.init(x: 15, y: descriptionY,
-        width: containerView.frame.width-30, height: 75))
+        let descriptionLabel = UILabel.init(frame: CGRect.init(x: 20, y: descriptionY,
+        width: containerView.frame.width-40, height: 75))
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = UIColor.darkGray
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
-        descriptionLabel.text = "Sorry, the network request fail. Check your internet connection or retray later."
+        descriptionLabel.text = "Sorry, the network failed.\nCheck your internet connection or try later."
         descriptionLabel.numberOfLines = 0
         containerView.addSubview(descriptionLabel)
         
         let retrayButtonX:CGFloat = (containerView.frame.size.width / 2) - (100 / 2)
-        let retrayButtonY:CGFloat = descriptionY + descriptionLabel.frame.size.height
-        let retrayButtonFrame = CGRect.init(x: retrayButtonX, y: retrayButtonY, width: 100, height: 30 )
+        let retrayButtonY:CGFloat = descriptionY + descriptionLabel.frame.size.height + 20
+        let retrayButtonFrame = CGRect.init(x: retrayButtonX, y: retrayButtonY, width: 100, height: 40 )
         let retrayButton = UIButton.init(type: .roundedRect)
         retrayButton.addTarget(self, action: #selector(reloadButtonPressed), for: .touchUpInside)
         retrayButton.frame = retrayButtonFrame
-        retrayButton.setTitle("retry", for: .normal)
+        retrayButton.backgroundColor = UIColor(red:0.18, green:0.43, blue:0.68, alpha:1.0)
+        retrayButton.layer.cornerRadius = 6
+        retrayButton.setTitleColor(UIColor.white, for: .normal)
+        retrayButton.setTitle("RETRY", for: .normal)
         containerView.addSubview(retrayButton)
+        
+        containerView.center = self.center
     }
     
     @objc func reloadButtonPressed()

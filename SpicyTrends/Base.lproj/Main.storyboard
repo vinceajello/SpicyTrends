@@ -49,6 +49,9 @@
                                     <constraint firstAttribute="width" constant="22" id="lhF-ww-Oog"/>
                                 </constraints>
                                 <color key="tintColor" red="1" green="0.1134345704" blue="0.18073991780000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="goToAbouView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hOZ-7B-pco"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aF-OZ-l1w">
                                 <rect key="frame" x="15" y="70" width="345" height="35"/>
@@ -90,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="972" y="33.733133433283363"/>
+            <point key="canvasLocation" x="1114" y="34"/>
         </scene>
         <!--Trend Details-->
         <scene sceneID="DR8-wV-bfs">
@@ -185,6 +188,13 @@
                                                     <constraint firstAttribute="width" constant="34" id="GfB-JT-KNF"/>
                                                 </constraints>
                                             </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeS-iB-bFZ" customClass="TagsView" customModule="SpicyTrends" customModuleProvider="target">
+                                                <rect key="frame" x="15" y="396" width="314" height="60"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="ViA-gR-O4k"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.28738969559999999" green="0.53323239089999996" blue="0.53333944079999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -201,13 +211,16 @@
                                             <constraint firstItem="Lsf-ux-GaF" firstAttribute="leading" secondItem="eKB-ZC-EDu" secondAttribute="trailing" constant="13" id="OcN-fr-ZNv"/>
                                             <constraint firstAttribute="trailing" secondItem="ugd-jh-6d7" secondAttribute="trailing" constant="15" id="S7G-3d-0hR"/>
                                             <constraint firstItem="7EK-Wy-3tL" firstAttribute="top" secondItem="jsY-Al-faM" secondAttribute="bottom" constant="15" id="TCh-fE-YRG"/>
+                                            <constraint firstItem="GeS-iB-bFZ" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="XSL-LJ-QTw"/>
                                             <constraint firstAttribute="trailing" secondItem="7EK-Wy-3tL" secondAttribute="trailing" constant="15" id="Zs6-fe-bVO"/>
                                             <constraint firstItem="RU7-JL-bEH" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="26" id="baT-xs-9yY"/>
                                             <constraint firstItem="eKB-ZC-EDu" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="c04-pV-GAm"/>
+                                            <constraint firstAttribute="trailing" secondItem="GeS-iB-bFZ" secondAttribute="trailing" constant="15" id="dGg-ZM-S0f"/>
                                             <constraint firstItem="K3M-Wo-Jdo" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="20" id="eOo-6P-XrA"/>
                                             <constraint firstItem="eKB-ZC-EDu" firstAttribute="top" secondItem="7EK-Wy-3tL" secondAttribute="bottom" constant="15" id="gch-fC-cUz"/>
                                             <constraint firstItem="G5W-7O-qEB" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" id="hT6-Ca-vf2"/>
                                             <constraint firstItem="X3Z-Nd-9EA" firstAttribute="top" secondItem="G5W-7O-qEB" secondAttribute="bottom" constant="15" id="mnb-3h-HjV"/>
+                                            <constraint firstItem="GeS-iB-bFZ" firstAttribute="top" secondItem="X3Z-Nd-9EA" secondAttribute="bottom" constant="15" id="n2u-VL-CB2"/>
                                             <constraint firstItem="X3Z-Nd-9EA" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" id="nJ9-iQ-EqS"/>
                                             <constraint firstItem="T8a-EV-Ilf" firstAttribute="top" secondItem="GS4-9f-br4" secondAttribute="top" id="nMu-zM-OJn"/>
                                             <constraint firstItem="jsY-Al-faM" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="15" id="pKN-gH-yvN"/>
@@ -248,6 +261,7 @@
                         <outlet property="newsCollectionView" destination="G5W-7O-qEB" id="0sI-gT-59r"/>
                         <outlet property="rankImage" destination="RU7-JL-bEH" id="Nbo-4M-ZKG"/>
                         <outlet property="rankView" destination="jsY-Al-faM" id="3Cr-TH-1wy"/>
+                        <outlet property="relatedTopicsView" destination="GeS-iB-bFZ" id="E7n-YW-Khz"/>
                         <outlet property="scrollView" destination="l7M-WW-GWm" id="n2r-M9-CXT"/>
                         <outlet property="trendLabel" destination="K3M-Wo-Jdo" id="lvJ-Ts-qn9"/>
                         <outlet property="tweetsCollectionView" destination="X3Z-Nd-9EA" id="4zk-hq-lmH"/>
@@ -256,7 +270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ig-6N-Jkj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2314.4000000000001" y="33.733133433283363"/>
+            <point key="canvasLocation" x="2004" y="34"/>
         </scene>
         <!--Nav Controller-->
         <scene sceneID="xpH-dW-QR2">

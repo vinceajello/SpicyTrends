@@ -13,4 +13,5 @@ class TrendsData: NSObject
     static let shared = TrendsData()
     var trends:[Trend] = []
     var newsImages:[String:UIImage?] = [:]
+    var mainImages:[String:UIImage?] = [:]
 }

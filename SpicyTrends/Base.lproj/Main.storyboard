@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6oM-gO-7wt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6oM-gO-7wt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -62,7 +62,7 @@
                         <constraints>
                             <constraint firstItem="Xp2-j7-cZb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0Dm-HI-9c0"/>
                             <constraint firstItem="NdE-Fn-Sp1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="4um-Is-Yb7"/>
-                            <constraint firstItem="1aF-OZ-l1w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="8Jl-5G-Tne"/>
+                            <constraint firstItem="1aF-OZ-l1w" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="8Jl-5G-Tne"/>
                             <constraint firstItem="Xp2-j7-cZb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DWG-f4-ucZ"/>
                             <constraint firstAttribute="trailing" secondItem="Xp2-j7-cZb" secondAttribute="trailing" id="HqC-7U-P9U"/>
                             <constraint firstItem="Xp2-j7-cZb" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="Q6E-li-ZzR"/>
@@ -73,7 +73,7 @@
                             <constraint firstItem="SKh-iG-bT7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="fnq-gb-fUO"/>
                             <constraint firstItem="Xp2-j7-cZb" firstAttribute="top" secondItem="1aF-OZ-l1w" secondAttribute="bottom" id="kfs-AZ-OOt"/>
                             <constraint firstItem="SKh-iG-bT7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="nry-1x-Tc4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1aF-OZ-l1w" secondAttribute="trailing" constant="15" id="riV-qM-DmF"/>
+                            <constraint firstAttribute="trailing" secondItem="1aF-OZ-l1w" secondAttribute="trailing" constant="15" id="riV-qM-DmF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

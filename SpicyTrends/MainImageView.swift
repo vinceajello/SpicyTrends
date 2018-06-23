@@ -30,39 +30,59 @@ class MainImageView: UIView
         imageView.translatesAutoresizingMaskIntoConstraints = true
                 
         activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
-        activityIndicator.center.x = UIScreen.main.bounds.width - 20
-        activityIndicator.center.y = 20
+        activityIndicator.center.x = 0
+        activityIndicator.center.y = 0
         self.addSubview(activityIndicator)
         
         activityIndicator.startAnimating()
     }
     
-    func getMainImage(word:String)
+    func getImage(word:String)
     {
-        DispatchQueue.main.async
+        let image = TrendsData.shared.mainImages[word]
+        if image == nil
         {
-            /*
-            self.netManager.getImage(word:word)
+            self.downloadImage(word: word)
+        }
+        else
+        {
+            if let i = image
             {
-                (success, response) in
-                
-                self.activityIndicator.startAnimating()
-                self.activityIndicator.alpha = 0
-                
-                if success != true
-                {print("Error : \(response)")}
-            
-                print("WIKI IMAGE LINK : \(response)")
-                self.imageView.downloadedFrom(link: response)
+                self.setImage(word:word,image: i!)
             }
-            */
+        }
+    }
+    
+    func downloadImage(word:String)
+    {
+        self.netManager.getImage(word:word)
+        {
+            (success, response) in
+            
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.alpha = 0
+            
+            if success != true
+            {print("Error : \(response)")}
+            
+            print("WIKI IMAGE LINK : \(response)")
+            self.imageView.downloadedFrom(word: word, link: response)
+        }
+    }
+    
+    func setImage(word:String,image:UIImage)
+    {
+        TrendsData.shared.mainImages[word] = image
+        DispatchQueue.main.async()
+        {
+            self.imageView.image = image
         }
     }
 }
 
 extension UIImageView
 {
-    func downloadedFrom(url: URL)
+    func downloadedFrom(word:String, url: URL)
     {
         URLSession.shared.dataTask(with: url)
         {
@@ -77,13 +97,14 @@ extension UIImageView
             
             DispatchQueue.main.async()
             {
+                TrendsData.shared.mainImages[word] = image
                 self.image = image
             }
         }.resume()
     }
-    func downloadedFrom(link: String)
+    func downloadedFrom(word:String,link: String)
     {
         guard let url = URL(string: link) else { return }
-        downloadedFrom(url: url)
+        downloadedFrom(word: word, url: url)
     }
 }

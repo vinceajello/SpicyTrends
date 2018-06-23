@@ -108,13 +108,17 @@ extension HomeViewController:RegionMenuDelegate, SourcesMenuViewDelegate
     func drawAccessoryView()
     {
         accessoryView.backgroundColor = UIColor.clear
+        accessoryView.clipsToBounds = true
         drawRegionMenu()
         drawSourcesMenu()
     }
     
     func drawRegionMenu()
     {
-        let f = CGRect.init(x: 0, y: 0, width: (accessoryView.frame.size.width/2)-6, height: 35)
+        let screenW = UIScreen.main.bounds.width - 30
+        let regionMenuW = (screenW/2)
+        
+        let f = CGRect.init(x: 0, y: 0, width: regionMenuW  + 25, height: 35)
         regionMenu = RegionMenuView.init(frame: f, userRegion: userRegion.code, parentView: self.view)
         regionMenu.delegate = self
         accessoryView.addSubview(regionMenu)
@@ -122,10 +126,17 @@ extension HomeViewController:RegionMenuDelegate, SourcesMenuViewDelegate
     
     func drawSourcesMenu()
     {
-        let f = CGRect.init(x: regionMenu.frame.width + 12, y: 0, width: (accessoryView.frame.size.width/2)-6, height: 35)
+        let screenW = UIScreen.main.bounds.width - 30
+        let sourcesMenuW = (screenW/2)
+        
+        let f = CGRect.init(x: sourcesMenuW + 40, y: 0, width: sourcesMenuW - 40, height: 35)
         sourcesMenu = SourcesMenuView.init(frame: f, parentView: self.view)
         sourcesMenu.delegate = self
         accessoryView.addSubview(sourcesMenu)
+        
+        // disbled
+        sourcesMenu.alpha = 0.5
+        sourcesMenu.isUserInteractionEnabled = false
     }
     
     func didSelectRegion(code: String)
@@ -177,9 +188,18 @@ extension HomeViewController
             {
                 self.loader.hide()
                 self.view.isUserInteractionEnabled = true
-                var time = response!.updatedAt
-                time.removeLast(3)
-                self.date.text = "Last update: "+time
+                let time = response!.updatedAt
+                //time.removeLast(3)
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                dateFormatter.locale = Locale.current
+                let date = dateFormatter.date(from:time)!
+                
+                print(time)
+                print(date)
+                
+                self.date.text = "Last update: "+timeAgoSince(date)
                 self.collectionView.setTrends(trends: trends)
             }
         }

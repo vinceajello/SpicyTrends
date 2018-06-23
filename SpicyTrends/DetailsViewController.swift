@@ -100,7 +100,7 @@ class DetailsViewController: UIViewController
         rankLabel.textColor = hColor
         
         // Start getting main image
-        //mainImage.getMainImage(word: trend.title)
+        mainImage.getImage(word: trend.title)
         
         // Set Trend Title
         trendLabel.text = trend.title

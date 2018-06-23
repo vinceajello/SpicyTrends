@@ -143,6 +143,73 @@ class NetworkManager: NSObject
         task.resume()
     }
     
+    func getImage(word:String, completionHandler: @escaping (Bool, String) -> Void)
+    {
+        // create and assign parameters
+        var parameters:[String:String] = [:]
+        parameters["word"] = "\(word)"
+        
+        // build URL from parameters
+        let query = createURL(endpoint: "getImageByKeyword", parameters: parameters)
+        
+        // init the request
+        let request = URLRequest(url: query.url!)
+        
+        // init the session
+        let session = createSession()
+        
+        let task = session.dataTask(with: request, completionHandler:
+        {
+            (data, response, error) in
+            
+            guard error == nil else
+            {
+                completionHandler(false, error.debugDescription)
+                return
+            }
+            guard let responseData = data else
+            {
+                completionHandler(false, "NetworkError: NO responseData!")
+                return
+            }
+            
+            // used to print json data
+            self.debugPrint(data: responseData)
+            
+            let decoder = JSONDecoder()
+            DispatchQueue.main.async
+            {
+                do
+                {
+                    let response = try decoder.decode(WikiImageResponse.self, from: responseData)
+                    if response.status == 200
+                    {
+                        completionHandler(true, response.data)
+                        return;
+                    }
+                    completionHandler(false, "Error: Status code Wrong!")
+                    return
+                }
+                catch
+                {
+                    print("error converting data to JSON")
+                    completionHandler(false, "Error: Unable to convert data to JSON")
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     func getGTrends(region:String, completionHandler: @escaping (Bool, [Trend]) -> Void)
     {

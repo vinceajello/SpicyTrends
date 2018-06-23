@@ -186,10 +186,10 @@ open class VegaScrollFlowLayout: UICollectionViewFlowLayout, NSCopying
                                               touchLocation: CGPoint) -> CGPoint {
         let yDistanceFromTouch = fabs(touchLocation.y - behavior.anchorPoint.y)
         let xDistanceFromTouch = fabs(touchLocation.x - behavior.anchorPoint.x)
-        let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / (springHardness * 100)
+        _ = (yDistanceFromTouch + xDistanceFromTouch) / (springHardness * 100)
         
         let attrs = behavior.items.first as! UICollectionViewLayoutAttributes
-        var center = attrs.center
+        let center = attrs.center
 //        if latestDelta < 0 {
 //            center.x += max(latestDelta, latestDelta * scrollResistance)
 //        } else {

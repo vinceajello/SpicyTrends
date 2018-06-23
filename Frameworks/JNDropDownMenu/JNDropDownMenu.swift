@@ -93,7 +93,9 @@ public class JNDropDownMenu: UIView {
         var tempTitles: [CATextLayer] = []
         var tempIndicators: [CAShapeLayer] = []
         var tempBgLayers: [CALayer] = []
-        for i in 0..<self.numOfMenu {
+        
+        for i in 0..<self.numOfMenu
+        {
             //bgLayer
             let bgLayerPosition = CGPoint(x: (Double(i)+0.5) * Double(bgLayerInterval),
                                           y: Double(self.frame.size.height/2))
@@ -102,7 +104,7 @@ public class JNDropDownMenu: UIView {
             tempBgLayers.append(bgLayer)
             
             //title
-            let titlePosition = CGPoint(x: Double((i * 2 + 1)) * Double(textLayerInterval),
+            let titlePosition = CGPoint(x: Double((i * 2 + 1)) * Double(textLayerInterval) - 5,
                                         y: Double(self.frame.size.height / 2))
             let titleString = self.datasource?.titleFor(column: i, menu: self)
             let title = self.createTextLayer(string: titleString!, color: self.textColor, point: titlePosition)
@@ -112,7 +114,7 @@ public class JNDropDownMenu: UIView {
             // Flag image
             flagImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 16.8, height: 12))
             flagImage.layer.cornerRadius = 4
-            flagImage.backgroundColor = .brown
+            flagImage.backgroundColor = .clear
             flagImage.center.y = titlePosition.y
             flagImage.frame.origin.x = 10
             
@@ -121,15 +123,15 @@ public class JNDropDownMenu: UIView {
                 self.layer.addSublayer(flagImage.layer)
             }
             
-    
             let indicatorPosition = CGPoint(x: titlePosition.x + title.bounds.size.width / 2 + 8,
                                         y: self.frame.size.height / 2)
             
             //indicator
             let indicator = self.createIndicator(color: self.arrowColor,
                                                  point: indicatorPosition)
-            self.layer.addSublayer(indicator)
+            //self.layer.addSublayer(indicator)
             tempIndicators.append(indicator)
+            
         }
         titles = tempTitles
         indicators = tempIndicators
@@ -150,12 +152,13 @@ public class JNDropDownMenu: UIView {
         case Sources = "Twitter"
     }
     
-    public init(origin: CGPoint, height: CGFloat, width: CGFloat?, parentView:UIView, menuType:DropDownType)
+    public init(origin: CGPoint, height: CGFloat, width: CGFloat, parentView:UIView, menuType:DropDownType)
     {
         self.parentView = parentView
         self.menuType = menuType
         let screenSize = UIScreen.main.bounds.size
-        super.init(frame: CGRect(origin: CGPoint.init(x: 0, y: 0), size: CGSize(width: width ?? screenSize.width, height: height)))
+
+        super.init(frame: CGRect(origin: CGPoint.init(x: 0, y: 0), size: CGSize(width:width, height: height)))
         self.currentSelectedMenuIndex = -1
         self.show = false
         
@@ -167,19 +170,23 @@ public class JNDropDownMenu: UIView {
         }
         
         // search bar by mspaki
-        let zero:CGFloat = 70 + 20
+        let searchBarY:CGFloat = 70 + xFix
+        var searchBarHeight:CGFloat = 0
         
-        let searchBarY:CGFloat = zero
-        searchBar = UISearchBar.init(frame: CGRect.init(x: 15, y: searchBarY, width: screenSize.width-30, height: 44))
-        //searchBar.frame.origin.x = ((screenSize.width - 30) / 2) - 125
-        searchBar.layer.cornerRadius = 4
-        searchBar.clipsToBounds = true
-        searchBar.barTintColor = .white
-        searchBar.delegate = self
-        searchBar.placeholder = "Search"
+        if menuType == .Countries
+        {
+            searchBarHeight = 44
+            searchBar = UISearchBar.init(frame: CGRect.init(x: 15, y: searchBarY, width: screenSize.width-30, height: searchBarHeight))
+            //searchBar.frame.origin.x = ((screenSize.width - 30) / 2) - 125
+            searchBar.layer.cornerRadius = 4
+            searchBar.clipsToBounds = true
+            searchBar.barTintColor = .white
+            searchBar.delegate = self
+            searchBar.placeholder = "Search"
+        }
         
         //tableView init
-        let tableViewY:CGFloat = searchBarY + searchBar.frame.size.height + 3
+        let tableViewY:CGFloat = searchBarY + searchBarHeight + 3
         self.tableView = UITableView.init(frame: CGRect(origin: CGPoint(x: 0, y :tableViewY), size: CGSize(width: 250, height: 0)))
         self.tableView.frame.origin.x = screenSize.width / 2 - 125
         self.tableView.rowHeight = 38
@@ -197,6 +204,7 @@ public class JNDropDownMenu: UIView {
         //background init and tapped
         self.backGroundView = UIView.init(frame: CGRect(origin: CGPoint(x: 0, y :0),
                                 size: CGSize(width: screenSize.width, height: screenSize.height)))
+        
         self.backGroundView.backgroundColor = UIColor.init(white: 0.0, alpha: 0.0)
         self.backGroundView.isOpaque = false
         let bgTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped(paramSender:)))
@@ -360,8 +368,12 @@ extension JNDropDownMenu {
 
             // msk hack
             parentView.superview?.addSubview(tableView)
-            parentView.superview?.addSubview(searchBar)
-
+            
+            if menuType == .Countries
+            {
+                parentView.superview?.addSubview(searchBar)
+            }
+            
             let tableViewHeight = (CGFloat(tableView.numberOfRows(inSection: 0)) * tableView.rowHeight) < UIScreen.main.bounds.height-(self.origin.y+100) ? (CGFloat(tableView.numberOfRows(inSection: 0)) * tableView.rowHeight) : UIScreen.main.bounds.height-(self.origin.y+100)
 
             UIView.animate(withDuration: 0.2, animations:
@@ -382,7 +394,10 @@ extension JNDropDownMenu {
             {
                 (_) in
                 tableView.removeFromSuperview()
-                self.searchBar.removeFromSuperview()
+                if self.menuType == .Countries
+                {
+                    self.searchBar.removeFromSuperview()
+                }
                 completion(true)
             })
         }

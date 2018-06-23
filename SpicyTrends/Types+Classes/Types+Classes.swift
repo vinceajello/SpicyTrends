@@ -82,3 +82,13 @@ struct TwitterHashtag:Codable
 {
     let text:String
 }
+
+//
+// WIKI AND GOOGLE IMAGE 
+//
+
+struct WikiImageResponse:Codable
+{
+    let status:Int
+    let data:String
+}

@@ -28,14 +28,14 @@ class SourcesMenuView: UIView
     {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.brown
+        self.backgroundColor = UIColor.clear
         
         sourcesMenu = JNDropDownMenu(origin: CGPoint(x: 0, y: 0), height: frame.height, width:frame.width, parentView:parentView, menuType:JNDropDownMenu.DropDownType.Sources)
         sourcesMenu.layer.cornerRadius = 2
         //regionMenu.layer.borderColor = TrendColors().hotOrange.cgColor
         //regionMenu.layer.borderWidth = 1
         sourcesMenu.clipsToBounds = true
-        sourcesMenu.textColor = TrendColors.init().fireRed
+        sourcesMenu.textColor = .gray
         sourcesMenu.textFont = UIFont.boldSystemFont(ofSize: 14.0)
         sourcesMenu.cellBgColor = UIColor.lightText
         sourcesMenu.arrowColor = UIColor.black

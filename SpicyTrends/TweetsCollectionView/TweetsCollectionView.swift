@@ -38,8 +38,8 @@ class TweetsCollectionView: UIView
         let nib = UINib(nibName: tweetCellID, bundle: nil)
         let screen = UIScreen.main.bounds
         let l = UICollectionViewFlowLayout.init();l.scrollDirection = .horizontal
-        l.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        let f = CGRect.init(x: 0, y: headerHeight, width: screen.width-30, height: 100)
+        l.sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        let f = CGRect.init(x: 0, y: headerHeight + 5, width: screen.width-30, height: 100)
         collectionView = UICollectionView.init(frame: f, collectionViewLayout: l)
         collectionView.register( nib, forCellWithReuseIdentifier: tweetCellID)
         collectionView.delegate = self
@@ -110,7 +110,7 @@ extension TweetsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: collectionView.frame.width-2, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width-30, height: collectionView.frame.height)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int

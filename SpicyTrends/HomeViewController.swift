@@ -14,6 +14,8 @@ class HomeViewController: UIViewController
     let countries = Countries.init()
     let userRegion = UserRegion.init()
     
+    var sourcesMenu:SourcesMenuView!
+    
     @IBOutlet private weak var collectionView: TrendsCollectionView!
     @IBOutlet private weak var accessoryView: UIView!
     @IBOutlet private weak var date: UILabel!
@@ -49,6 +51,7 @@ class HomeViewController: UIViewController
         DispatchQueue.main.async
         {
             self.loader.show()
+            self.view.isUserInteractionEnabled = false
             self.date.text = "- - -"
             
             self.collectionView.trends = []
@@ -56,7 +59,7 @@ class HomeViewController: UIViewController
             self.collectionView.reloadData()
         }
         
-        self.perform(#selector(getTrendsData(region:)), with: regionMenu.currentRegion, afterDelay: delay)
+        self.perform(#selector(self.getTrendsData(region:)), with: self.regionMenu.currentRegion, afterDelay: delay)
     }
     
     func reloadData()
@@ -73,7 +76,7 @@ class HomeViewController: UIViewController
 // MARK: AccessoryView + RegionMenu + SourceMenu
 //
 
-extension HomeViewController:RegionMenuDelegate
+extension HomeViewController:RegionMenuDelegate, SourcesMenuViewDelegate
 {
     func regionMenuDidOpen()
     {
@@ -105,16 +108,24 @@ extension HomeViewController:RegionMenuDelegate
     func drawAccessoryView()
     {
         accessoryView.backgroundColor = UIColor.clear
-        accessoryView.frame.size.width = self.view.frame.width - 10
         drawRegionMenu()
+        drawSourcesMenu()
     }
     
     func drawRegionMenu()
     {
-        let f = CGRect.init(x: 0, y: 0, width: accessoryView.frame.size.width, height: 35)
+        let f = CGRect.init(x: 0, y: 0, width: (accessoryView.frame.size.width/2)-6, height: 35)
         regionMenu = RegionMenuView.init(frame: f, userRegion: userRegion.code, parentView: self.view)
         regionMenu.delegate = self
         accessoryView.addSubview(regionMenu)
+    }
+    
+    func drawSourcesMenu()
+    {
+        let f = CGRect.init(x: regionMenu.frame.width + 12, y: 0, width: (accessoryView.frame.size.width/2)-6, height: 35)
+        sourcesMenu = SourcesMenuView.init(frame: f, parentView: self.view)
+        sourcesMenu.delegate = self
+        accessoryView.addSubview(sourcesMenu)
     }
     
     func didSelectRegion(code: String)
@@ -165,9 +176,9 @@ extension HomeViewController
             DispatchQueue.main.async
             {
                 self.loader.hide()
+                self.view.isUserInteractionEnabled = true
                 var time = response!.updatedAt
                 time.removeLast(3)
-                
                 self.date.text = "Last update: "+time
                 self.collectionView.setTrends(trends: trends)
             }
@@ -229,7 +240,7 @@ extension HomeViewController: ZoomTransitionSourceDelegate
     
     func image(with view: UIView) -> UIImage?
     {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 1.0)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0.0)
         defer { UIGraphicsEndImageContext() }
         if let context = UIGraphicsGetCurrentContext()
         {
@@ -266,6 +277,7 @@ extension HomeViewController: NoTrendsAlertViewDelegate
         DispatchQueue.main.async
         {
             self.loader.hide()
+            self.view.isUserInteractionEnabled = true
             self.date.text = "- - -"
             self.showAlertView()
         }

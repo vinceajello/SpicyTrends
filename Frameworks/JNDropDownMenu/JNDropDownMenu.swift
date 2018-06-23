@@ -49,6 +49,8 @@ public protocol JNDropDownMenuDelegate: class {
 public class JNDropDownMenu: UIView {
 
     let countries = Countries.init()
+    let sources = Sources.init()
+    
     var origin = CGPoint(x: 0, y: 0)
     var currentSelectedMenuIndex = -1
     var show = false
@@ -113,7 +115,11 @@ public class JNDropDownMenu: UIView {
             flagImage.backgroundColor = .brown
             flagImage.center.y = titlePosition.y
             flagImage.frame.origin.x = 10
-            self.layer.addSublayer(flagImage.layer)
+            
+            if menuType == .Countries
+            {
+                self.layer.addSublayer(flagImage.layer)
+            }
             
     
             let indicatorPosition = CGPoint(x: titlePosition.x + title.bounds.size.width / 2 + 8,
@@ -136,21 +142,36 @@ public class JNDropDownMenu: UIView {
         // Drawing code
     }
     */
-    public init(origin: CGPoint, height: CGFloat, width: CGFloat?, parentView:UIView)
+    
+    public var menuType:DropDownType!
+    public enum DropDownType:String
+    {
+        case Countries = "Google"
+        case Sources = "Twitter"
+    }
+    
+    public init(origin: CGPoint, height: CGFloat, width: CGFloat?, parentView:UIView, menuType:DropDownType)
     {
         self.parentView = parentView
+        self.menuType = menuType
         let screenSize = UIScreen.main.bounds.size
-        super.init(frame: CGRect(origin: origin, size: CGSize(width: width ?? screenSize.width, height: height)))
+        super.init(frame: CGRect(origin: CGPoint.init(x: 0, y: 0), size: CGSize(width: width ?? screenSize.width, height: height)))
         self.currentSelectedMenuIndex = -1
         self.show = false
         
-        // search bar by mspaki
-        let distance:CGFloat = 3
-        let zero:CGFloat = 64
+        var xFix:CGFloat = 0
+        if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 2436
+        {
+            //iPhone X
+            xFix = 20
+        }
         
-        let searchBarY:CGFloat = zero + distance
-        searchBar = UISearchBar.init(frame: CGRect.init(x: 0, y: searchBarY, width: screenSize.width-30, height: 44))
-        searchBar.frame.origin.x = ((screenSize.width - 30) / 2) - 125
+        // search bar by mspaki
+        let zero:CGFloat = 70 + 20
+        
+        let searchBarY:CGFloat = zero
+        searchBar = UISearchBar.init(frame: CGRect.init(x: 15, y: searchBarY, width: screenSize.width-30, height: 44))
+        //searchBar.frame.origin.x = ((screenSize.width - 30) / 2) - 125
         searchBar.layer.cornerRadius = 4
         searchBar.clipsToBounds = true
         searchBar.barTintColor = .white
@@ -158,7 +179,7 @@ public class JNDropDownMenu: UIView {
         searchBar.placeholder = "Search"
         
         //tableView init
-        let tableViewY:CGFloat = searchBarY + searchBar.frame.size.height + distance
+        let tableViewY:CGFloat = searchBarY + searchBar.frame.size.height + 3
         self.tableView = UITableView.init(frame: CGRect(origin: CGPoint(x: 0, y :tableViewY), size: CGSize(width: 250, height: 0)))
         self.tableView.frame.origin.x = screenSize.width / 2 - 125
         self.tableView.rowHeight = 38
@@ -411,9 +432,17 @@ extension JNDropDownMenu: UITableViewDataSource, UITableViewDelegate {
         assert(self.datasource != nil, "menu's datasource shouldn't be nil")
 
         let code = self.datasource?.titleForRow(at: JNIndexPath(column: self.currentSelectedMenuIndex, row: indexPath.row), for: self)
-        cell?.textLabel?.text = countries.all[code!]
-
-        cell?.imageView?.image = UIImage.init(named: code!)
+        
+        if menuType == .Sources
+        {
+            cell?.textLabel?.text = code
+            cell?.imageView?.alpha = 0
+        }
+        else if menuType == .Countries
+        {
+            cell?.textLabel?.text = countries.all[code!]
+            cell?.imageView?.image = UIImage.init(named: code!)
+        }
         
         cell?.backgroundColor = cellBgColor
         cell?.textLabel?.font = textFont

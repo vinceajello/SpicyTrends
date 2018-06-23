@@ -1,5 +1,5 @@
 //
-//  RegionMenuView.swift
+//  SourcesMenuView.swift
 //  SpicyTrends
 //
 //  Created by Vincenzo Ajello on 31/05/18.
@@ -8,53 +8,84 @@
 
 import UIKit
 
-protocol RegionMenuDelegate
+protocol SourcesMenuViewDelegate
 {
+    /*
     func didSelectRegion(code:String)
     func regionMenuDidOpen()
     func regionMenuDidClose()
+    */
 }
 
-class RegionMenuView: UIView
+class SourcesMenuView: UIView
 {
-    private var regionMenu:JNDropDownMenu!
-    let allCountries = Countries.init()
-    var tableDatas:[String] = []
-    var userRegion:String!
-    var currentRegion:String!
-    var delegate:RegionMenuDelegate!
-    var colors = TrendColors.init()
+    private var sourcesMenu:JNDropDownMenu!
+    var delegate:SourcesMenuViewDelegate!
 
-    init(frame: CGRect,userRegion:String,parentView:UIView)
+    var currentSource:String!
+    
+    init(frame: CGRect,parentView:UIView)
     {
         super.init(frame: frame)
         
-        self.userRegion = userRegion
-        tableDatas = allCountries.allCodes
+        self.backgroundColor = UIColor.brown
         
-        regionMenu = JNDropDownMenu(origin: CGPoint(x: 0, y: 0), height: frame.height, width:frame.width, parentView:parentView, menuType:JNDropDownMenu.DropDownType.Countries)
-        regionMenu.layer.cornerRadius = 2
+        sourcesMenu = JNDropDownMenu(origin: CGPoint(x: 0, y: 0), height: frame.height, width:frame.width, parentView:parentView, menuType:JNDropDownMenu.DropDownType.Sources)
+        sourcesMenu.layer.cornerRadius = 2
         //regionMenu.layer.borderColor = TrendColors().hotOrange.cgColor
         //regionMenu.layer.borderWidth = 1
-        regionMenu.clipsToBounds = true
-        regionMenu.textColor = TrendColors.init().fireRed
-        regionMenu.textFont = UIFont.boldSystemFont(ofSize: 14.0)
-        regionMenu.cellBgColor = UIColor.lightText
-        regionMenu.arrowColor = UIColor.black
-        regionMenu.cellSelectionColor = UIColor.lightText
-        regionMenu.updateColumnTitleOnSelection = true
-        regionMenu.datasource = self
-        regionMenu.delegate = self
-        self.addSubview(regionMenu)
-        
-        self.setIndexFromUserRegion()
+        sourcesMenu.clipsToBounds = true
+        sourcesMenu.textColor = TrendColors.init().fireRed
+        sourcesMenu.textFont = UIFont.boldSystemFont(ofSize: 14.0)
+        sourcesMenu.cellBgColor = UIColor.lightText
+        sourcesMenu.arrowColor = UIColor.black
+        sourcesMenu.cellSelectionColor = UIColor.lightText
+        sourcesMenu.datasource = self
+        sourcesMenu.delegate = self
+        self.addSubview(sourcesMenu)
     }
     
     required init?(coder aDecoder: NSCoder)
     {super.init(coder: aDecoder)}
 }
 
-extension RegionMenuView: JNDropDownMenuDelegate, JNDropDownMenuDataSource
+extension SourcesMenuView: JNDropDownMenuDelegate, JNDropDownMenuDataSource
+{
+    func didSelectRow(at indexPath: JNIndexPath, for menu: JNDropDownMenu)
+    {
+        
+    }
+    
+    func searchTextDidChange(text: String)
+    {
+        
+    }
+    
+    func menuDidOpen()
+    {
+        
+    }
+    
+    func menuDidClose()
+    {
+        
+    }
+    
+    func numberOfRows(in column: NSInteger, for menu: JNDropDownMenu) -> Int
+    {
+        return Sources.init().all.count
+    }
+    
+    func titleForRow(at indexPath: JNIndexPath, for menu: JNDropDownMenu) -> String
+    {
+        return Sources.init().all[indexPath.row]
+    }
+    
+    
+}
+
+/*
+extension SourcesMenuView: JNDropDownMenuDelegate, JNDropDownMenuDataSource
 {
     func menuDidOpen()
     {
@@ -122,3 +153,4 @@ extension RegionMenuView: JNDropDownMenuDelegate, JNDropDownMenuDataSource
         }
     }
 }
+ */

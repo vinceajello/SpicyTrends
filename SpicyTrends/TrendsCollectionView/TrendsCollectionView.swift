@@ -65,7 +65,7 @@ extension TrendsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         let itemWidth = UIScreen.main.bounds.width - (2 * xInset)
-        let smallSize = CGSize(width: itemWidth, height: 57)
+        let smallSize = CGSize(width: itemWidth, height: 65)
         var largeSize = CGSize(width: itemWidth, height: 0)
         let baseHeight:CGFloat = 65
         let sourceHeight:CGFloat = 33
@@ -83,6 +83,8 @@ extension TrendsCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         {
             if w.range(of:"may refer to:") == nil && w.count > 0
             {
+                let h = heightForView(text: w, width: itemWidth-30)
+                largeSize.height = baseHeight + h + sourceHeight
                 return largeSize
             }
         }

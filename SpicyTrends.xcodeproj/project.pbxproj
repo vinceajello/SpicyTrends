@@ -51,6 +51,8 @@
 		61D8FA7A20BB193C000EB35D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA7920BB193C000EB35D /* NetworkManager.swift */; };
 		61D8FA7C20BC91A6000EB35D /* TrendsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA7B20BC91A6000EB35D /* TrendsData.swift */; };
 		61D8FA8320BEB5BE000EB35D /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8FA8220BEB5BE000EB35D /* DetailsViewController.swift */; };
+		66EB1AE820DDC67C00B58F9D /* SourcesMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB1AE720DDC67C00B58F9D /* SourcesMenuView.swift */; };
+		66EB1AEA20DDCB5F00B58F9D /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB1AE920DDCB5F00B58F9D /* Sources.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +104,8 @@
 		61D8FA7920BB193C000EB35D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		61D8FA7B20BC91A6000EB35D /* TrendsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsData.swift; sourceTree = "<group>"; };
 		61D8FA8220BEB5BE000EB35D /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		66EB1AE720DDC67C00B58F9D /* SourcesMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesMenuView.swift; sourceTree = "<group>"; };
+		66EB1AE920DDCB5F00B58F9D /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				61D8FA6D20BA1AA0000EB35D /* Countries.swift */,
+				66EB1AE920DDCB5F00B58F9D /* Sources.swift */,
 				61D8FA7B20BC91A6000EB35D /* TrendsData.swift */,
 				6107A26220DA9C9100C8281E /* Types+Classes.swift */,
 			);
@@ -267,6 +272,7 @@
 			children = (
 				61D8FA7120BA200E000EB35D /* UserRegion.swift */,
 				6176C96020BFE50600CA719B /* RegionMenuView.swift */,
+				66EB1AE720DDC67C00B58F9D /* SourcesMenuView.swift */,
 				6176C97A20C1B1D100CA719B /* TrendColors.swift */,
 				6107A26020D8115700C8281E /* NoTrendsAlertView.swift */,
 			);
@@ -351,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6132A29F20D12FE40062BCFB /* NewsCollectionView.swift in Sources */,
+				66EB1AEA20DDCB5F00B58F9D /* Sources.swift in Sources */,
 				6176C96620BFF26900CA719B /* TagButton.swift in Sources */,
 				6107A26120D8115700C8281E /* NoTrendsAlertView.swift in Sources */,
 				61D8FA4620B9F4DF000EB35D /* SpicyTrends.xcdatamodeld in Sources */,
@@ -373,6 +380,7 @@
 				6132A29920CA82E70062BCFB /* ZoomTransitionDestinationDelegate.swift in Sources */,
 				61D8FA3E20B9F4DF000EB35D /* AppDelegate.swift in Sources */,
 				6132A29A20CA82E70062BCFB /* ZoomTransitionSourceDelegate.swift in Sources */,
+				66EB1AE820DDC67C00B58F9D /* SourcesMenuView.swift in Sources */,
 				61D8FA6420BA0B60000EB35D /* AZVerticalGradientView.swift in Sources */,
 				6176C97520C094C000CA719B /* TweetCell.swift in Sources */,
 				6132A29820CA82E70062BCFB /* ZoomTransitioning.swift in Sources */,

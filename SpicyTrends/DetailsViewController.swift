@@ -28,6 +28,7 @@ class DetailsViewController: UIViewController
     @IBOutlet private var rankView:UIView!
     @IBOutlet public var mainImage:MainImageView!
     @IBOutlet private var trendLabel:UILabel!
+    @IBOutlet private var rankImage:UIImageView!
     @IBOutlet private var wikiView:WikipediaDescriptionView!
     @IBOutlet private var newsCollectionView:NewsCollectionView!
     @IBOutlet private var tweetsCollectionView:TweetsCollectionView!
@@ -38,12 +39,18 @@ class DetailsViewController: UIViewController
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
     @IBOutlet weak var contentSizeHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var contentViewY: NSLayoutConstraint!
+
     public var transitionFrame = CGRect.init(x: 0, y: 0, width: 0, height: 0)
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.view.backgroundColor = .clear
+        
+        goToGoogleButton.alpha = 0
+        goToWikipediaButton.alpha = 0
+        mainImage.alpha = 0
         
         scrollView.isPagingEnabled = false
         scrollView.clipsToBounds = false
@@ -62,6 +69,23 @@ class DetailsViewController: UIViewController
         rankView.layer.cornerRadius = rankView.frame.width / 2
         rankView.layer.borderWidth = 1
         rankView.backgroundColor = UIColor.clear
+        
+        switch trend.state
+        {
+            case "same":
+                break
+            case "new":
+                rankImage.image = UIImage.init(named: "statusIconNEW")
+                break
+            case "up":
+                rankImage.image = UIImage.init(named: "statusIconUP")
+                break
+            case "down":
+                rankImage.image = UIImage.init(named: "statusIconDOWN")
+                break
+            default:
+                break
+        }
         
         // Configure Ranking Label
         let rankLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 35, height: 35))
@@ -86,6 +110,10 @@ class DetailsViewController: UIViewController
         // Show a description for the keyword (if we have one)
         wikiView.setWiki(wiki: trend.wiki)
         
+        contentViewY.constant = 10
+        contentViewHeight.constant = 215 + 65 + wikiView.frame.height + 30 + 25
+        self.view.layoutIfNeeded()
+        
         // Configure buttons size and layout
         let w:CGFloat = (UIScreen.main.bounds.size.width - 75) / 2
         goToGoogleButton.translatesAutoresizingMaskIntoConstraints = false
@@ -98,8 +126,11 @@ class DetailsViewController: UIViewController
         if (wikiView.isWikiSetted == false)
         {goToWikipediaButton.alpha = 0}
  
-        newsCollectionView.setNews(news: trend.news.news)
-        
+        if let news = trend.news?.news
+        {
+            newsCollectionView.setNews(news: news)
+        }
+                
         tweetsCollectionView.delegate = self
         tweetsCollectionView.getTweets(word: trend.title, region: country)
         
@@ -132,15 +163,26 @@ class DetailsViewController: UIViewController
         newHeight = newHeight + goToGoogleButton.frame.size.height + 15
         if newsCollectionView.newsData.count > 0
         {
-            newHeight = newHeight + 125 + 15
+            newHeight = newHeight + 125
         }
+        newHeight = newHeight + 15
+
         if tweetsCollectionView.tweetsData.count > 0
         {
             newHeight = newHeight + 125 + 15
         }
         
+        contentViewY.constant = 10
         contentViewHeight.constant = newHeight
         contentSizeHeight.constant = newHeight
+        
+        UIView.animate(withDuration: 1)
+        {
+            self.goToGoogleButton.alpha = 1
+            self.goToWikipediaButton.alpha = 1
+            self.mainImage.alpha = 1
+            self.view.layoutIfNeeded()
+        }
     }
     
     func showRelatedTopics(suggested:[String])
@@ -176,8 +218,19 @@ extension DetailsViewController:ZoomTransitionDestinationDelegate
 {
     func transitionDestinationImageViewFrame(forward: Bool) -> CGRect
     {
-        let s = self.view.safeAreaInsets.top
-        return CGRect.init(x: 15, y: 215+20, width: self.view.frame.width-30, height: transitionFrame.size.height)
+        let y = transitionY()
+        return CGRect.init(x: 15, y: y, width: self.view.frame.width-30, height: transitionFrame.size.height)
+    }
+    
+    func transitionY()->CGFloat
+    {
+        var xFix:CGFloat = 0
+        if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 2436
+        {
+            //iPhone X
+            xFix = 23
+        }
+        return 215+10+20+xFix
     }
 }
 
@@ -187,6 +240,4 @@ extension DetailsViewController:TweetsCollectionViewDelegate
     {
         self.updateHeight()
     }
-    
-    
 }

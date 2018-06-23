@@ -30,7 +30,7 @@ class NewsCollectionView: UIView
         let nib = UINib(nibName: newsCellID, bundle: nil)
         let screen = UIScreen.main.bounds
         let l = UICollectionViewFlowLayout.init();l.scrollDirection = .horizontal
-        l.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        l.sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         let f = CGRect.init(x: 0, y: headerHeight+5, width: screen.width-30, height: totalHeight-headerHeight)
         collectionView = UICollectionView.init(frame: f, collectionViewLayout: l)
         collectionView.register( nib, forCellWithReuseIdentifier: newsCellID)
@@ -69,7 +69,7 @@ extension NewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: collectionView.frame.width-10, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width-30, height: collectionView.frame.height)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int

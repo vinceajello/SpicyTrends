@@ -9,33 +9,6 @@
 import UIKit
 
 
-
-
-/*
-
-
-
-
-
-
-
-struct WikiImageResponse:Codable
-{
-    let status:Int
-    let data:String
-}
-
-struct SuggestedKeywordsResponse:Codable
-{
-    let status:Int
-    let data:[String]
-}
-*/
-
-
-
-
-
 class NetworkManager: NSObject
 {
     private let base_endpoint = "https://api.spicytrends.app/api/"

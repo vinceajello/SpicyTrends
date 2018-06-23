@@ -111,7 +111,7 @@ open class VegaScrollFlowLayout: UICollectionViewFlowLayout, NSCopying
 		
 		item.transform3D = CATransform3DTranslate(transformIdentity, 0, yDelta, 0)
 		item.transform3D = CATransform3DScale(item.transform3D, scaleFactor, scaleFactor, scaleFactor)
-		//item.alpha = alphaDistributor(x: y)
+		item.alpha = alphaDistributor(x: y)
 	
 	}
 	

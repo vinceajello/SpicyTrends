@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SafariServices
+
 
 protocol DetailsViewControllerDelegate
 {
@@ -42,6 +44,26 @@ class DetailsViewController: UIViewController
 
     @IBOutlet weak var contentViewY: NSLayoutConstraint!
 
+    @IBAction func goToGoogleAct(_ sender: Any)
+    {
+        var escapedString = trend.title.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+
+        let baseLink = "http://www.google.com/search?q=" + escapedString!
+        print("\(baseLink)")
+
+            if let url = URL.init(string: baseLink)
+            {
+                
+                let config = SFSafariViewController.Configuration()
+                config.entersReaderIfAvailable = true
+                
+                let vc = SFSafariViewController(url: url, configuration: config)
+                vc.modalTransitionStyle = .flipHorizontal
+                self.present(vc, animated: true)
+            }
+        
+    }
+    
     public var transitionFrame = CGRect.init(x: 0, y: 0, width: 0, height: 0)
     
     override func viewDidLoad()
@@ -140,6 +162,9 @@ class DetailsViewController: UIViewController
         updateHeight()
         
         self.getSuggestedWords(word:trend.title)
+        
+        
+        
     }
     
     func getSuggestedWords(word:String)
@@ -177,6 +202,7 @@ class DetailsViewController: UIViewController
             }
         }
     }
+    
     
     
     
@@ -278,3 +304,4 @@ extension DetailsViewController:TweetsCollectionViewDelegate
         self.updateHeight()
     }
 }
+

@@ -147,6 +147,9 @@
                                                     <constraint firstAttribute="height" constant="36" id="8pd-lI-sHr"/>
                                                 </constraints>
                                                 <state key="normal" image="GoogleButton"/>
+                                                <connections>
+                                                    <action selector="goToGoogleAct:" destination="I1X-lM-Srx" eventType="touchUpInside" id="aRp-lg-bDi"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-ux-GaF">
                                                 <rect key="frame" x="106" y="315" width="116" height="36"/>

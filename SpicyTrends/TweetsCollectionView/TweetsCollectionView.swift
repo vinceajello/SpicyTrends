@@ -50,6 +50,8 @@ class TweetsCollectionView: UIView
         self.clipsToBounds = false
         self.backgroundColor = UIColor.clear
         collectionView.backgroundColor = UIColor.clear
+        collectionView.showsHorizontalScrollIndicator = false
+
     }
     
     func startLoader()

@@ -92,3 +92,14 @@ struct WikiImageResponse:Codable
     let status:Int
     let data:String
 }
+
+//
+// SUGGESTED WORDS 
+//
+
+struct SuggestedKeywordsResponse:Codable
+{
+    let status:Int
+    let data:[String]
+}
+

@@ -33,6 +33,7 @@ class DetailsViewController: UIViewController
     @IBOutlet private var newsCollectionView:NewsCollectionView!
     @IBOutlet private var tweetsCollectionView:TweetsCollectionView!
     @IBOutlet private var relatedTopicsView:TagsView!
+    @IBOutlet private var relatedTopicsLabel:UILabel!
     @IBOutlet private var goToGoogleButton:UIButton!
     @IBOutlet private var goToWikipediaButton:UIButton!
 
@@ -48,6 +49,7 @@ class DetailsViewController: UIViewController
         super.viewDidLoad()
         self.view.backgroundColor = .clear
         
+        relatedTopicsLabel.alpha = 0
         goToGoogleButton.alpha = 0
         goToWikipediaButton.alpha = 0
         mainImage.alpha = 0
@@ -73,7 +75,6 @@ class DetailsViewController: UIViewController
         switch trend.state
         {
             case "same":
-                rankImage.backgroundColor = .red
                 break
             case "new":
                 rankImage.image = UIImage.init(named: "statusIconNEW")
@@ -113,7 +114,7 @@ class DetailsViewController: UIViewController
         wikiView.setWiki(wiki: trend.wiki)
         
         contentViewY.constant = 10
-        contentViewHeight.constant = 215 + 65 + wikiView.frame.height + 30 + 25
+        //contentViewHeight.constant = 215 + 65 + wikiView.frame.height + 30 + 25
         self.view.layoutIfNeeded()
         
         // Configure buttons size and layout
@@ -138,23 +139,50 @@ class DetailsViewController: UIViewController
         
         updateHeight()
         
+        self.getSuggestedWords(word:trend.title)
+    }
+    
+    func getSuggestedWords(word:String)
+    {
+        let suggested = TrendsData.shared.suggestedTopics[word]
+        if suggested == nil
+        {
+            downloadSuggestedTrends(word: word)
+        }
+        else
+        {
+            self.showRelatedTopics(suggested:suggested!)
+        }
+    }
+    
+    func downloadSuggestedTrends(word:String)
+    {
         // Get suggested word from api
-        /*
         netManager.getSuggestionsByKeyword(word: trend.title)
         {
             (success, response) in
             
             if success == true
             {
-                //print("Suggestions : \(response)")
-                let suggestions = self.limitSuggestionsTo(max: 5, suggestions: response)
-                self.showRelatedTopics(suggested:suggestions)
-                return
+                let suggestions = self.getArrayFromCommaSeparatedString(string: response)
+                let limited = Array(suggestions.prefix(5))
+
+                print("Suggestions : \(limited)")
+                TrendsData.shared.suggestedTopics[word] = limited
+                self.showRelatedTopics(suggested:limited)
             }
-            print("no-suggestions error (\(response)")
+            else
+            {
+                print("no-suggestions error (\(response)")
+            }
         }
-         */
     }
+    
+    
+    
+    
+    
+    
 
     func updateHeight()
     {
@@ -163,6 +191,7 @@ class DetailsViewController: UIViewController
         newHeight = newHeight + rankView.frame.height + 15
         newHeight = newHeight + wikiView.wikiLabel.frame.height + 15
         newHeight = newHeight + goToGoogleButton.frame.size.height + 15
+        
         if newsCollectionView.newsData.count > 0
         {
             newHeight = newHeight + 125
@@ -174,9 +203,18 @@ class DetailsViewController: UIViewController
             newHeight = newHeight + 125 + 15
         }
         
+        if let suggested = TrendsData.shared.suggestedTopics[trend.title]
+        {
+            if suggested.count > 0
+            {
+                relatedTopicsLabel.alpha = 1
+                newHeight = newHeight + relatedTopicsView.height + 15 + 20 + 10
+            }
+        }
+        
         contentViewY.constant = 10
         contentViewHeight.constant = newHeight
-        contentSizeHeight.constant = newHeight
+        //contentSizeHeight.constant = newHeight
         
         UIView.animate(withDuration: 1)
         {
@@ -191,18 +229,15 @@ class DetailsViewController: UIViewController
     {
         relatedTopicsView.lineBreakMode = .byTruncatingTail
         relatedTopicsView.append(contentsOf: suggested)
+        updateHeight()
     }
     
-    func limitSuggestionsTo(max:Int,suggestions:String)->[String]
+    func getArrayFromCommaSeparatedString(string:String)->[String]
     {
-        let a = suggestions.components(separatedBy: ", ")
-        var o:[String] = []
-        if a.count > 10
-        {for i in 0...max-1
-        {o.append(a[i])}}
-        else {o = a}
-        return o
+        let array = string.components(separatedBy: ", ")
+        return Array(array)
     }
+    
     
     @IBAction func closeDetailsButtonPressed(_ sender: Any)
     {

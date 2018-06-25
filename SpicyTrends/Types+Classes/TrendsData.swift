@@ -14,4 +14,5 @@ class TrendsData: NSObject
     var trends:[Trend] = []
     var newsImages:[String:UIImage?] = [:]
     var mainImages:[String:UIImage?] = [:]
+    var suggestedTopics:[String:[String]] = [:]
 }

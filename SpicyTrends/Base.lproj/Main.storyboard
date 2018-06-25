@@ -188,17 +188,53 @@
                                                     <constraint firstAttribute="width" constant="34" id="GfB-JT-KNF"/>
                                                 </constraints>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Related topics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1y-dU-1H3">
+                                                <rect key="frame" x="15" y="396" width="314" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="15" id="Emd-mW-z6e"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeS-iB-bFZ" customClass="TagsView" customModule="SpicyTrends" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="396" width="314" height="60"/>
+                                                <rect key="frame" x="10" y="416" width="324" height="60"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="ViA-gR-O4k"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
+                                                        <color key="value" red="1" green="0.59999999999999998" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingLeftRight">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="marginLeftRight">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="marginTopBottom">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="tagLayerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="tagLayerWidth">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="tagTitleColor">
+                                                        <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingTopBottom">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.28738969559999999" green="0.53323239089999996" blue="0.53333944079999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstItem="RU7-JL-bEH" firstAttribute="leading" secondItem="K3M-Wo-Jdo" secondAttribute="trailing" constant="15" id="1jU-MT-7ib"/>
+                                            <constraint firstItem="a1y-dU-1H3" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="43f-eK-1Wh"/>
                                             <constraint firstItem="K3M-Wo-Jdo" firstAttribute="leading" secondItem="jsY-Al-faM" secondAttribute="trailing" constant="15" id="4q5-4e-7el"/>
                                             <constraint firstItem="7EK-Wy-3tL" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="5eU-fJ-84s"/>
                                             <constraint firstAttribute="height" constant="600" id="81a-BT-eoj"/>
@@ -211,16 +247,18 @@
                                             <constraint firstItem="Lsf-ux-GaF" firstAttribute="leading" secondItem="eKB-ZC-EDu" secondAttribute="trailing" constant="13" id="OcN-fr-ZNv"/>
                                             <constraint firstAttribute="trailing" secondItem="ugd-jh-6d7" secondAttribute="trailing" constant="15" id="S7G-3d-0hR"/>
                                             <constraint firstItem="7EK-Wy-3tL" firstAttribute="top" secondItem="jsY-Al-faM" secondAttribute="bottom" constant="15" id="TCh-fE-YRG"/>
-                                            <constraint firstItem="GeS-iB-bFZ" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="XSL-LJ-QTw"/>
+                                            <constraint firstItem="GeS-iB-bFZ" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="10" id="XSL-LJ-QTw"/>
                                             <constraint firstAttribute="trailing" secondItem="7EK-Wy-3tL" secondAttribute="trailing" constant="15" id="Zs6-fe-bVO"/>
                                             <constraint firstItem="RU7-JL-bEH" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="26" id="baT-xs-9yY"/>
                                             <constraint firstItem="eKB-ZC-EDu" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" constant="15" id="c04-pV-GAm"/>
-                                            <constraint firstAttribute="trailing" secondItem="GeS-iB-bFZ" secondAttribute="trailing" constant="15" id="dGg-ZM-S0f"/>
+                                            <constraint firstAttribute="trailing" secondItem="GeS-iB-bFZ" secondAttribute="trailing" constant="10" id="dGg-ZM-S0f"/>
                                             <constraint firstItem="K3M-Wo-Jdo" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="20" id="eOo-6P-XrA"/>
+                                            <constraint firstItem="a1y-dU-1H3" firstAttribute="top" secondItem="X3Z-Nd-9EA" secondAttribute="bottom" constant="15" id="gDk-6K-JdN"/>
                                             <constraint firstItem="eKB-ZC-EDu" firstAttribute="top" secondItem="7EK-Wy-3tL" secondAttribute="bottom" constant="15" id="gch-fC-cUz"/>
+                                            <constraint firstItem="GeS-iB-bFZ" firstAttribute="top" secondItem="a1y-dU-1H3" secondAttribute="bottom" constant="5" id="h4Z-aM-l5d"/>
                                             <constraint firstItem="G5W-7O-qEB" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" id="hT6-Ca-vf2"/>
+                                            <constraint firstAttribute="trailing" secondItem="a1y-dU-1H3" secondAttribute="trailing" constant="15" id="mkb-eT-xMM"/>
                                             <constraint firstItem="X3Z-Nd-9EA" firstAttribute="top" secondItem="G5W-7O-qEB" secondAttribute="bottom" constant="15" id="mnb-3h-HjV"/>
-                                            <constraint firstItem="GeS-iB-bFZ" firstAttribute="top" secondItem="X3Z-Nd-9EA" secondAttribute="bottom" constant="15" id="n2u-VL-CB2"/>
                                             <constraint firstItem="X3Z-Nd-9EA" firstAttribute="leading" secondItem="GS4-9f-br4" secondAttribute="leading" id="nJ9-iQ-EqS"/>
                                             <constraint firstItem="T8a-EV-Ilf" firstAttribute="top" secondItem="GS4-9f-br4" secondAttribute="top" id="nMu-zM-OJn"/>
                                             <constraint firstItem="jsY-Al-faM" firstAttribute="top" secondItem="T8a-EV-Ilf" secondAttribute="bottom" constant="15" id="pKN-gH-yvN"/>
@@ -261,6 +299,7 @@
                         <outlet property="newsCollectionView" destination="G5W-7O-qEB" id="0sI-gT-59r"/>
                         <outlet property="rankImage" destination="RU7-JL-bEH" id="Nbo-4M-ZKG"/>
                         <outlet property="rankView" destination="jsY-Al-faM" id="3Cr-TH-1wy"/>
+                        <outlet property="relatedTopicsLabel" destination="a1y-dU-1H3" id="K4a-s0-tH6"/>
                         <outlet property="relatedTopicsView" destination="GeS-iB-bFZ" id="E7n-YW-Khz"/>
                         <outlet property="scrollView" destination="l7M-WW-GWm" id="n2r-M9-CXT"/>
                         <outlet property="trendLabel" destination="K3M-Wo-Jdo" id="lvJ-Ts-qn9"/>
@@ -270,7 +309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ig-6N-Jkj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2004" y="34"/>
+            <point key="canvasLocation" x="2004" y="33.733133433283363"/>
         </scene>
         <!--Nav Controller-->
         <scene sceneID="xpH-dW-QR2">

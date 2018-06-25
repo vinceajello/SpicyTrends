@@ -200,7 +200,51 @@ class NetworkManager: NSObject
         task.resume()
     }
     
-    
+    func getSuggestionsByKeyword(word:String, completionHandler: @escaping (Bool, String) -> Void)
+    {
+        // create and assign parameters
+        var parameters:[String:String] = [:]
+        parameters["word"] = "\(word)"
+        
+        // build URL from parameters
+        let query = createURL(endpoint: "getSuggetionsByWord", parameters: parameters)
+        
+        // init the request
+        let request = URLRequest(url: query.url!)
+        
+        // init the session
+        let session = createSession()
+        
+        let task = session.dataTask(with: request, completionHandler:
+        {
+            (data, response, error) in
+            
+            guard error == nil ,let responseData = data else
+            {completionHandler(false, "no response data");return}
+            
+            // used to print json data
+            self.debugPrint(data: responseData)
+            
+            let decoder = JSONDecoder()
+            DispatchQueue.main.async
+                {
+                    do
+                    {
+                        let response = try decoder.decode(SuggestedKeywordsResponse.self, from: responseData)
+                        if response.status == 200
+                        {
+                            completionHandler(true, response.data.joined(separator: ", "))
+                            return;
+                        }
+                        completionHandler(false, "Status != 200")
+                        return
+                    }
+                    catch
+                    {completionHandler(false, "error converting data to JSON")}
+            }
+        })
+        task.resume()
+    }
     
     
     
@@ -406,51 +450,7 @@ class NetworkManager: NSObject
     
     
     
-    func getSuggestionsByKeyword(word:String, completionHandler: @escaping (Bool, String) -> Void)
-    {
-        // create and assign parameters
-        var parameters:[String:String] = [:]
-        parameters["word"] = "\(word)"
-        
-        // build URL from parameters
-        let query = createURL(endpoint: "getSuggetionsByWord", parameters: parameters)
-        
-        // init the request
-        let request = URLRequest(url: query.url!)
-        
-        // init the session
-        let session = createSession()
-        
-        let task = session.dataTask(with: request, completionHandler:
-        {
-            (data, response, error) in
-            
-            guard error == nil ,let responseData = data else
-            {completionHandler(false, "no response data");return}
-            
-            // used to print json data
-            // self.debugPrint(data: responseData)
-            
-            let decoder = JSONDecoder()
-            DispatchQueue.main.async
-            {
-                do
-                {
-                    let response = try decoder.decode(SuggestedKeywordsResponse.self, from: responseData)
-                    if response.status == 200
-                    {
-                        completionHandler(true, response.data.joined(separator: ", "))
-                        return;
-                    }
-                    completionHandler(false, "Status != 200")
-                    return
-                }
-                catch
-                {completionHandler(false, "error converting data to JSON")}
-            }
-        })
-        task.resume()
-    }
+    
     
     
     

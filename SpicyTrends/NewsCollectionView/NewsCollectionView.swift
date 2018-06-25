@@ -37,6 +37,7 @@ class NewsCollectionView: UIView
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isPagingEnabled = false
+        collectionView.showsHorizontalScrollIndicator = false
         self.addSubview(collectionView)
         
         self.clipsToBounds = true

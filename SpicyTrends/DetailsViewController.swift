@@ -78,7 +78,7 @@ class DetailsViewController: UIViewController
         
         scrollView.isPagingEnabled = false
         scrollView.clipsToBounds = false
-        scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, -30)
+        scrollView.scrollIndicatorInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: -30)
         
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 4

@@ -29,7 +29,7 @@ class MainImageView: UIView
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = true
                 
-        activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+        activityIndicator = UIActivityIndicatorView.init(style: .gray)
         activityIndicator.center.x = 0
         activityIndicator.center.y = 0
         self.addSubview(activityIndicator)

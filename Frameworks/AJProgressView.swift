@@ -80,11 +80,11 @@ class AJProgressView: UIView {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if (appDelegate.window?.subviews.contains(objProgressView))! {
-            appDelegate.window?.bringSubview(toFront:objProgressView)
+            appDelegate.window?.bringSubviewToFront(objProgressView)
             //print("already there")
         }else{
             appDelegate.window?.addSubview(objProgressView)
-            appDelegate.window?.bringSubview(toFront: objProgressView)
+            appDelegate.window?.bringSubviewToFront(objProgressView)
         }
         objProgressView.backgroundColor = bgColor
         objProgressView.frame = UIScreen.main.bounds
@@ -144,7 +144,7 @@ class AJProgressView: UIView {
         animation.duration = CFTimeInterval(duration / 2.0)
         animation.fromValue = 0
         animation.toValue = 1
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         return animation
     }
@@ -156,7 +156,7 @@ class AJProgressView: UIView {
         animation.duration = CFTimeInterval(duration / 2.0)
         animation.fromValue = 0
         animation.toValue = 1
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         return animation
     }
@@ -166,7 +166,7 @@ class AJProgressView: UIView {
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.fromValue = 0
         animation.toValue = CGFloat.pi * 2
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.repeatCount = Float.infinity
         
         return animation
@@ -188,7 +188,7 @@ class AJProgressView: UIView {
         let animationGroup = CAAnimationGroup()
         animationGroup.animations = [animateStrokeEnd(), animateStrokeStart(), animateRotation(), animateColors()]
         animationGroup.duration = CFTimeInterval(duration)
-        animationGroup.fillMode = kCAFillModeBoth
+        animationGroup.fillMode = CAMediaTimingFillMode.both
         animationGroup.isRemovedOnCompletion = false
         animationGroup.repeatCount = Float.infinity
         shapeLayer.add(animationGroup, forKey: "loading")

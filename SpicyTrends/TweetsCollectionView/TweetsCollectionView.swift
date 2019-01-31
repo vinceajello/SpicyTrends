@@ -58,7 +58,7 @@ class TweetsCollectionView: UIView
     func startLoader()
     {
         let screen = UIScreen.main.bounds
-        activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView.init(style: .whiteLarge)
         activityIndicator.color = UIColor.darkGray
         activityIndicator.center.x = (screen.width - 20) / 2
         activityIndicator.center.y = 75

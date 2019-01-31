@@ -272,7 +272,7 @@ public class JNDropDownMenu: UIView {
         layer.bounds = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: sizeWidth, height: size.height))
         layer.string = string
         layer.fontSize = textFont.pointSize
-        layer.alignmentMode = kCAAlignmentCenter
+        layer.alignmentMode = CATextLayerAlignmentMode.center
         layer.foregroundColor = color.cgColor
         layer.contentsScale = UIScreen.main.scale
         layer.position = point
@@ -283,7 +283,7 @@ public class JNDropDownMenu: UIView {
     func calculateTitleSizeWith(string: String) -> CGSize {
         let dict = [kCTFontAttributeName: textFont]
         let constraintRect = CGSize(width: 280, height: 0)
-        let rect = string.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: dict as [NSAttributedStringKey : Any], context: nil)
+        let rect = string.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: dict as [NSAttributedString.Key : Any], context: nil)
         return rect.size
     }
 
@@ -459,7 +459,7 @@ extension JNDropDownMenu: UITableViewDataSource, UITableViewDelegate {
         let identifier = "DropDownMenuCell"
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: identifier)
         }
 
         assert(self.datasource != nil, "menu's datasource shouldn't be nil")
